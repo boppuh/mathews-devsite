@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Threads Integration @ Meta — Case Study | Ryan Mathews</title>
+  <meta name="description" content="Case study on driving user growth through Instagram-to-Threads integration, achieving +510K daily posts and +40% onboarding improvement.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://yourdomain.com/writeups/project-1.html">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Threads Integration @ Meta — Case Study">
+  <meta property="og:description" content="Driving user growth through Instagram-to-Threads integration at Meta.">
+  <meta property="og:url" content="https://yourdomain.com/writeups/project-1.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/og-image.svg">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Threads Integration @ Meta — Case Study">
+  <meta name="twitter:description" content="Driving user growth through Instagram-to-Threads integration at Meta.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Additional styles for writeup pages -->
+  <style>
+    .writeup-header {
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (min-width: 640px) {
+      .writeup-header {
+        padding: var(--space-16) 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .writeup-header {
+        padding: var(--space-20) 0;
+      }
+    }
+
+    .writeup-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-light);
+    }
+
+    .writeup-content {
+      max-width: var(--max-width-prose);
+    }
+
+    .writeup-content h2 {
+      margin-top: var(--space-12);
+      margin-bottom: var(--space-4);
+      font-size: var(--text-xl);
+    }
+
+    .writeup-content h3 {
+      margin-top: var(--space-8);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-lg);
+    }
+
+    .writeup-content p {
+      color: var(--color-text-muted);
+      line-height: var(--leading-relaxed);
+    }
+
+    .writeup-content ul,
+    .writeup-content ol {
+      margin-bottom: var(--space-4);
+      padding-left: var(--space-6);
+      color: var(--color-text-muted);
+    }
+
+    .writeup-content li {
+      margin-bottom: var(--space-2);
+      line-height: var(--leading-relaxed);
+    }
+
+    .writeup-content code {
+      font-family: var(--font-family-mono);
+      font-size: var(--text-sm);
+      padding: var(--space-1) var(--space-2);
+      background-color: var(--color-tag-bg);
+      border-radius: var(--border-radius-sm);
+    }
+
+    .writeup-content pre {
+      margin-bottom: var(--space-4);
+      padding: var(--space-4);
+      background-color: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      overflow-x: auto;
+    }
+
+    .writeup-content pre code {
+      padding: 0;
+      background: none;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: var(--space-4);
+      margin: var(--space-8) 0;
+    }
+
+    @media (min-width: 640px) {
+      .results-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .result-card {
+      padding: var(--space-5);
+      background-color: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      text-align: center;
+    }
+
+    .result-card .number {
+      display: block;
+      font-size: var(--text-3xl);
+      font-weight: var(--font-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+      letter-spacing: -0.02em;
+    }
+
+    .result-card .label {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-text-muted);
+      transition: color var(--transition-fast);
+    }
+
+    .back-link:hover {
+      color: var(--color-primary);
+    }
+
+    .writeup-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-6) 0;
+      margin-top: var(--space-12);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .writeup-nav a {
+      font-weight: var(--font-medium);
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <nav class="nav-container" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        <svg class="theme-icon-light" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="theme-icon-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Writeup Header -->
+    <header class="writeup-header">
+      <div class="container">
+        <a href="../index.html#projects" class="back-link">
+          &larr; Back to Projects
+        </a>
+
+        <h1>Threads Integration @ Meta</h1>
+
+        <div class="card-tags" style="margin-top: var(--space-4);">
+          <span class="tag">Swift</span>
+          <span class="tag">Objective-C</span>
+          <span class="tag">PHP/Hack</span>
+          <span class="tag">iOS</span>
+          <span class="tag">A/B Testing</span>
+        </div>
+
+        <div class="writeup-meta">
+          <span>Meta (Instagram/Threads)</span>
+          <span>&middot;</span>
+          <span>Senior Software Engineer</span>
+          <span>&middot;</span>
+          <span>2023&ndash;2025</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Writeup Content -->
+    <article class="section">
+      <div class="container writeup-content">
+
+        <h2>Overview</h2>
+        <p>
+          As a Senior Software Engineer on the Instagram Feed team, I led the product development,
+          engineering execution, and data analysis for multiple high-impact integrations between
+          Instagram and Threads. These projects were critical to Threads' growth strategy, driving
+          significant increases in user acquisition, engagement, and content creation.
+        </p>
+
+        <h2>The Challenge</h2>
+        <p>
+          Threads launched in July 2023 and needed to rapidly grow its user base and content volume.
+          The challenge was clear: how do we leverage Instagram's massive user base to drive Threads
+          adoption without disrupting the Instagram experience?
+        </p>
+        <p>
+          Key constraints included:
+        </p>
+        <ul>
+          <li><strong>User experience:</strong> Changes couldn't feel intrusive or damage Instagram engagement</li>
+          <li><strong>Technical complexity:</strong> Two apps with different architectures needed seamless integration</li>
+          <li><strong>Measurement:</strong> We needed robust A/B testing to validate impact without risking regressions</li>
+          <li><strong>Scale:</strong> Any solution had to work at Instagram's scale (billions of daily interactions)</li>
+        </ul>
+
+        <h2>Solution: Multi-Pronged Integration Strategy</h2>
+
+        <h3>1. IG Feed &rarr; Threads Crossposting</h3>
+        <p>
+          I developed and launched the crossposting feature that allows users to simultaneously share
+          content to both Instagram and Threads. This reduced friction for content creators and
+          helped bootstrap Threads' content ecosystem.
+        </p>
+        <p>
+          The implementation required:
+        </p>
+        <ul>
+          <li>New UI affordances in the Instagram post composer</li>
+          <li>Backend coordination between Instagram and Threads posting pipelines</li>
+          <li>Handling edge cases: failed posts, partial failures, content format differences</li>
+          <li>Analytics infrastructure to track cross-platform content performance</li>
+        </ul>
+
+        <h3>2. Threads Onboarding from IG Feed</h3>
+        <p>
+          I led product development for a new onboarding flow that surfaces Threads content and
+          sign-up prompts within the Instagram Feed. This capitalized on high-intent moments when
+          users were already engaged with social content.
+        </p>
+        <p>
+          The approach involved:
+        </p>
+        <ul>
+          <li>Identifying optimal placement within the feed algorithm</li>
+          <li>Multiple A/B tests to optimize conversion rates</li>
+          <li>Personalization based on user behavior and friend graph</li>
+          <li>Careful measurement to ensure no negative impact on Instagram metrics</li>
+        </ul>
+
+        <h3>3. Navigation Flow Optimization</h3>
+        <p>
+          I developed and launched a navigation change where tapping on a Thread in the IG Feed
+          directs users to the tapped post being pinned to the top of the Threads main feed,
+          rather than a permalink view. This encouraged deeper engagement with the Threads app.
+        </p>
+
+        <h2>Results</h2>
+        <p>
+          These integrations delivered significant, measurable impact on Threads' growth metrics:
+        </p>
+
+        <div class="results-grid">
+          <div class="result-card">
+            <span class="number">+510K</span>
+            <span class="label">Daily original posts</span>
+          </div>
+          <div class="result-card">
+            <span class="number">+40%</span>
+            <span class="label">Onboarded users</span>
+          </div>
+          <div class="result-card">
+            <span class="number">+320K</span>
+            <span class="label">New users per day</span>
+          </div>
+        </div>
+
+        <p>
+          Additional metrics from specific projects:
+        </p>
+        <ul>
+          <li><strong>Crossposting:</strong> +510K daily original posts, +11% top-line original posts, +185K eWAU on Threads</li>
+          <li><strong>Onboarding flow:</strong> +40% onboarded users (+320K per day), +50K new daily active users</li>
+          <li><strong>Navigation change:</strong> +2.12% eDAU, +1.34% eWAU, +1.74% post impressions on Threads</li>
+        </ul>
+
+        <h2>Technical Approach</h2>
+
+        <h3>iOS Architecture</h3>
+        <p>
+          The iOS implementation was primarily in Swift, with some Objective-C for legacy integration
+          points. Key architectural decisions included:
+        </p>
+        <ul>
+          <li>Protocol-oriented design for flexible component composition</li>
+          <li>Dependency injection for testability</li>
+          <li>Feature flags for gradual rollout and A/B testing</li>
+          <li>Comprehensive analytics instrumentation</li>
+        </ul>
+
+        <h3>Cross-Platform Consistency</h3>
+        <p>
+          Server-side components were built in PHP/Hack to ensure consistency across platforms.
+          This included:
+        </p>
+        <ul>
+          <li>Unified API contracts for iOS and Android</li>
+          <li>Server-driven UI for rapid iteration</li>
+          <li>Centralized experiment configuration</li>
+        </ul>
+
+        <h3>Data-Driven Development</h3>
+        <p>
+          Every feature was developed with measurement in mind:
+        </p>
+        <ul>
+          <li>Pre-defined success metrics and guardrails</li>
+          <li>A/B testing with statistical rigor</li>
+          <li>Real-time dashboards for monitoring rollouts</li>
+          <li>Post-launch analysis to inform iteration</li>
+        </ul>
+
+        <h2>Lessons Learned</h2>
+        <ol>
+          <li>
+            <strong>Start with measurement:</strong> Defining success metrics upfront forced clarity
+            on goals and enabled rapid iteration based on data.
+          </li>
+          <li>
+            <strong>Cross-functional collaboration is essential:</strong> These projects required tight
+            coordination between iOS, Android, backend, design, product, and data science teams.
+          </li>
+          <li>
+            <strong>Small changes can have outsized impact:</strong> The navigation change was
+            relatively simple technically but drove significant engagement improvements.
+          </li>
+          <li>
+            <strong>Protect the core experience:</strong> Our focus on guardrail metrics ensured we
+            grew Threads without harming Instagram&mdash;a critical constraint for long-term success.
+          </li>
+        </ol>
+
+        <h2>Related Work</h2>
+        <p>
+          During this period, I also contributed to several other Instagram projects:
+        </p>
+        <ul>
+          <li>Re-architected the IG Feed attribution system from Obj-C to Swift</li>
+          <li>Developed video playback controls for Reels in the main Feed</li>
+          <li>Led Digital Systems Act compliance across iOS surfaces</li>
+          <li>Increased E2E test coverage from 10% to 100% for core Explore flows</li>
+        </ul>
+
+        <!-- Navigation between writeups -->
+        <nav class="writeup-nav" aria-label="Project navigation">
+          <span></span>
+          <a href="../index.html#projects">All Projects &rarr;</a>
+        </nav>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="current-year">2024</span> Ryan Mathews. All rights reserved.</p>
+      <p class="footer-note">Built with HTML, CSS, and a little vanilla JS.</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="../script.js"></script>
+</body>
+</html>

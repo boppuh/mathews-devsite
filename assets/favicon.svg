@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #1e293b; }
+        .text { fill: #f1f5f9; }
+      }
+    </style>
+  </defs>
+  <rect class="bg" width="32" height="32" rx="6" fill="#2563eb"/>
+  <text class="text" x="16" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">RM</text>
+</svg>

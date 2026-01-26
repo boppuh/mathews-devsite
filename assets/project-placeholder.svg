@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f1f5f9"/>
+
+  <!-- Code window mockup -->
+  <g transform="translate(40, 40)">
+    <!-- Window frame -->
+    <rect width="320" height="220" rx="8" fill="#1e293b"/>
+
+    <!-- Window header -->
+    <rect width="320" height="32" rx="8" fill="#334155"/>
+    <rect y="24" width="320" height="8" fill="#334155"/>
+
+    <!-- Window buttons -->
+    <circle cx="20" cy="16" r="6" fill="#ef4444"/>
+    <circle cx="40" cy="16" r="6" fill="#fbbf24"/>
+    <circle cx="60" cy="16" r="6" fill="#22c55e"/>
+
+    <!-- Code lines -->
+    <g transform="translate(20, 50)" fill="#94a3b8">
+      <rect width="60" height="8" rx="2" fill="#60a5fa"/>
+      <rect x="70" width="100" height="8" rx="2"/>
+
+      <rect y="20" width="30" height="8" rx="2" fill="#a78bfa"/>
+      <rect x="40" y="20" width="80" height="8" rx="2"/>
+      <rect x="130" y="20" width="50" height="8" rx="2" fill="#34d399"/>
+
+      <rect y="40" width="50" height="8" rx="2"/>
+      <rect x="60" y="40" width="120" height="8" rx="2" fill="#fbbf24"/>
+
+      <rect y="60" width="40" height="8" rx="2" fill="#60a5fa"/>
+      <rect x="50" y="60" width="90" height="8" rx="2"/>
+
+      <rect y="80" width="70" height="8" rx="2"/>
+      <rect x="80" y="80" width="60" height="8" rx="2" fill="#f87171"/>
+
+      <rect y="100" width="30" height="8" rx="2" fill="#a78bfa"/>
+      <rect x="40" y="100" width="100" height="8" rx="2"/>
+
+      <rect y="120" width="60" height="8" rx="2"/>
+      <rect x="70" y="120" width="80" height="8" rx="2" fill="#34d399"/>
+
+      <rect y="140" width="40" height="8" rx="2" fill="#60a5fa"/>
+    </g>
+  </g>
+
+  <!-- Decorative corner accent -->
+  <rect x="360" y="260" width="40" height="40" fill="#2563eb"/>
+</svg>

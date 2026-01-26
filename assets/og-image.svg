@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#f8f9fa"/>
+
+  <!-- Decorative elements -->
+  <rect x="0" y="0" width="8" height="630" fill="#2563eb"/>
+  <rect x="0" y="580" width="1200" height="50" fill="#2563eb"/>
+
+  <!-- Content area -->
+  <g transform="translate(80, 180)">
+    <!-- Name -->
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="72" font-weight="700" fill="#1a1a2e">
+      Ryan Mathews
+    </text>
+
+    <!-- Title -->
+    <text y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="500" fill="#2563eb">
+      Software Engineer
+    </text>
+
+    <!-- Tagline -->
+    <text y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" fill="#4a4a68">
+      iOS / Full-stack / Fintech · New York
+    </text>
+
+    <!-- Tech tags -->
+    <g transform="translate(0, 220)">
+      <rect x="0" y="0" width="80" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="40" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Swift</text>
+
+      <rect x="100" y="0" width="90" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="145" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Python</text>
+
+      <rect x="210" y="0" width="70" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="245" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Rust</text>
+
+      <rect x="300" y="0" width="80" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="340" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Kafka</text>
+
+      <rect x="400" y="0" width="70" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="435" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">AWS</text>
+
+      <rect x="490" y="0" width="80" height="40" rx="6" fill="#e2e8f0"/>
+      <text x="530" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">gRPC</text>
+    </g>
+  </g>
+
+  <!-- Icon -->
+  <g transform="translate(1000, 180)">
+    <rect width="120" height="120" rx="24" fill="#2563eb"/>
+    <text x="60" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="600" fill="white" text-anchor="middle">RM</text>
+  </g>
+
+  <!-- URL in footer -->
+  <text x="1120" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="white" text-anchor="end">yourdomain.com</text>
+</svg>
