@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!--
-    EDIT HERE: Replace "yourdomain.com" with your actual domain
-    Update lastmod dates when you make significant changes
-  -->
 
   <!-- Homepage -->
   <url>
-    <loc>https://yourdomain.com/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <loc>https://ryanmathews.dev/</loc>
+    <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Project Case Studies -->
   <url>
-    <loc>https://yourdomain.com/writeups/project-1.html</loc>
-    <lastmod>2024-01-01</lastmod>
+    <loc>https://ryanmathews.dev/writeups/project-1.html</loc>
+    <lastmod>2026-03-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -25,8 +21,8 @@
     Add more writeup pages as you create them:
 
   <url>
-    <loc>https://yourdomain.com/writeups/project-2.html</loc>
-    <lastmod>2024-01-01</lastmod>
+    <loc>https://ryanmathews.dev/writeups/project-2.html</loc>
+    <lastmod>2026-03-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>

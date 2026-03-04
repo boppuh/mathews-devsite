@@ -1,12 +1,10 @@
 # robots.txt for Ryan Mathews resume website
-# EDIT HERE: Update with your domain
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-# EDIT HERE: Replace with your actual domain
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://ryanmathews.dev/sitemap.xml
 
 # Disallow any admin or private paths (add as needed)
 # Disallow: /admin/
