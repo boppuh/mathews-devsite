@@ -1277,6 +1277,12 @@ strong {
     box-shadow: none !important;
   }
 
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
   html {
     font-size: 12pt;
   }
