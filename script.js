@@ -123,17 +123,10 @@
   }
 
   // ==========================================================================
-  // Intersection Observer for Scroll Animations (Optional Enhancement)
+  // Intersection Observer — Scroll Reveal
   // ==========================================================================
 
-  // Only add animations if user doesn't prefer reduced motion
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0.1
-    };
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -141,12 +134,32 @@
           observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, {
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.1
+    });
 
-    // Observe sections for subtle fade-in effect
-    document.querySelectorAll('.section').forEach(section => {
-      section.classList.add('fade-in');
-      observer.observe(section);
+    // Section headings fade in
+    document.querySelectorAll('.section h2').forEach(el => {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+
+    // Cards stagger within each grid
+    const grids = '.card-grid, .experience-grid, .current-work-grid, .companies-grid';
+    document.querySelectorAll(grids).forEach(grid => {
+      grid.querySelectorAll('.card').forEach((card, i) => {
+        card.style.setProperty('--reveal-delay', `${i * 60}ms`);
+        card.classList.add('reveal');
+        observer.observe(card);
+      });
+    });
+
+    // Skill groups stagger (they're not .card elements)
+    document.querySelectorAll('.skills-grid .skill-group').forEach((group, i) => {
+      group.style.setProperty('--reveal-delay', `${i * 60}ms`);
+      group.classList.add('reveal');
+      observer.observe(group);
     });
   }
 

@@ -496,6 +496,17 @@ strong {
   }
 }
 
+/* Hero: stacked on mobile, side-by-side at desktop */
+.hero-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.hero-visual {
+  order: -1; /* image above text on mobile */
+}
+
 .hero-content {
   max-width: 40rem;
 }
@@ -504,15 +515,40 @@ strong {
   width: 5rem;
   height: 5rem;
   border-radius: var(--border-radius-full);
-  margin-bottom: var(--space-6);
   border: 3px solid var(--color-border);
   object-fit: cover;
+  display: block;
+  margin-bottom: 0;
 }
 
 @media (min-width: 640px) {
   .hero-headshot {
     width: 6rem;
     height: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-16);
+  }
+
+  .hero-content {
+    flex: 1;
+    max-width: none;
+  }
+
+  .hero-visual {
+    order: 1;
+    flex-shrink: 0;
+  }
+
+  .hero-headshot {
+    width: 14rem;
+    height: 14rem;
+    border-width: 4px;
   }
 }
 
@@ -1154,9 +1190,9 @@ strong {
 .contact-reasons {
   margin-bottom: var(--space-8);
   padding: var(--space-6);
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-bg-elevated);
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--color-border-light);
+  border: 1px solid var(--color-border);
 }
 
 .contact-reasons h3 {
@@ -1239,6 +1275,12 @@ strong {
     background: transparent !important;
     color: #000 !important;
     box-shadow: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   html {
@@ -1340,5 +1382,29 @@ strong {
   .status-badge,
   .status-indicator {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   Scroll Reveal Animations
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
