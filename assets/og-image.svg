@@ -15,12 +15,12 @@
 
     <!-- Title -->
     <text y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="500" fill="#2563eb">
-      Software Engineer
+      Senior iOS Engineer
     </text>
 
     <!-- Tagline -->
     <text y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" fill="#4a4a68">
-      iOS / Full-stack / Fintech · New York
+      Offline-first / Real-time / Consumer products · New York
     </text>
 
     <!-- Tech tags -->
@@ -29,19 +29,19 @@
       <text x="40" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Swift</text>
 
       <rect x="100" y="0" width="90" height="40" rx="6" fill="#e2e8f0"/>
-      <text x="145" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Python</text>
+      <text x="145" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">SwiftUI</text>
 
       <rect x="210" y="0" width="70" height="40" rx="6" fill="#e2e8f0"/>
-      <text x="245" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Rust</text>
+      <text x="245" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">UIKit</text>
 
       <rect x="300" y="0" width="80" height="40" rx="6" fill="#e2e8f0"/>
-      <text x="340" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Kafka</text>
+      <text x="340" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">GRDB</text>
 
       <rect x="400" y="0" width="70" height="40" rx="6" fill="#e2e8f0"/>
-      <text x="435" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">AWS</text>
+      <text x="435" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">Python</text>
 
       <rect x="490" y="0" width="80" height="40" rx="6" fill="#e2e8f0"/>
-      <text x="530" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">gRPC</text>
+      <text x="530" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="#475569" text-anchor="middle">C++</text>
     </g>
   </g>
 
@@ -52,5 +52,5 @@
   </g>
 
   <!-- URL in footer -->
-  <text x="1120" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="white" text-anchor="end">yourdomain.com</text>
+  <text x="1120" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" fill="white" text-anchor="end">ryanmathews.dev</text>
 </svg>

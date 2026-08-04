@@ -12,20 +12,9 @@
   <!-- Project Case Studies -->
   <url>
     <loc>https://ryanmathews.dev/writeups/project-1.html</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-08-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!--
-    Add more writeup pages as you create them:
-
-  <url>
-    <loc>https://ryanmathews.dev/writeups/project-2.html</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  -->
 
 </urlset>

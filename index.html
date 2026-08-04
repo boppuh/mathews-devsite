@@ -13,17 +13,26 @@
   <meta property="og:title" content="Ryan Mathews — Senior iOS Engineer">
   <meta property="og:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
   <meta property="og:url" content="https://ryanmathews.dev/">
-  <meta property="og:image" content="https://ryanmathews.dev/assets/ryan_dev_og.png">
+  <meta property="og:site_name" content="Ryan Mathews">
+  <meta property="og:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Ryan Mathews - Senior iOS Engineer">
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ryan Mathews — Senior iOS Engineer">
   <meta name="twitter:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
-  <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.png">
+  <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
+  <meta name="twitter:image:alt" content="Ryan Mathews - Senior iOS Engineer">
+
+  <meta name="theme-color" content="#fbfcff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#07111f" media="(prefers-color-scheme: dark)">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="preload" as="image" href="./assets/me-640.avif" type="image/avif">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./styles.css">
@@ -35,6 +44,7 @@
     "name": "Ryan Mathews",
     "jobTitle": "Founding Engineer",
     "url": "https://ryanmathews.dev",
+    "image": "https://ryanmathews.dev/assets/me-640.avif",
     "email": "mailto:ryan@ryanmathews.dev",
     "sameAs": [
       "https://github.com/boppuh",
@@ -110,9 +120,10 @@
             </div>
           </div>
 
-          <div class="hero-visual">
-            <img src="./assets/me.jpg" alt="Ryan Mathews" class="hero-headshot">
-          </div>
+          <picture class="hero-visual">
+            <source srcset="./assets/me-640.avif" type="image/avif">
+            <img src="./assets/me.jpg" alt="Ryan Mathews" class="hero-headshot" width="1206" height="1436" decoding="async" fetchpriority="high">
+          </picture>
         </div>
       </div>
     </section>
@@ -242,7 +253,7 @@
         <div class="experience-grid">
           <article class="card experience-card">
             <div class="experience-header">
-              <img src="./assets/meta_trans.png" alt="Meta" class="company-logo">
+              <img src="./assets/meta_logo.avif" alt="Meta" class="company-logo" width="1400" height="500" loading="lazy" decoding="async">
               <div class="experience-title">
                 <h3>Software Engineer</h3>
                 <p class="company">Meta · Instagram / Threads</p>
@@ -264,7 +275,7 @@
 
           <article class="card experience-card">
             <div class="experience-header">
-              <img src="./assets/audible_trans.png" alt="Audible" class="company-logo">
+              <img src="./assets/audible_logo.png" alt="Audible" class="company-logo" width="860" height="274" loading="lazy" decoding="async">
               <div class="experience-title">
                 <h3>Software Development Engineer</h3>
                 <p class="company">Audible · Amazon</p>
@@ -282,7 +293,7 @@
 
           <article class="card experience-card">
             <div class="experience-header">
-              <img src="./assets/globalstar_logo.jpg" alt="Globalstar" class="company-logo">
+              <img src="./assets/globalstar_logo.jpg" alt="Globalstar" class="company-logo" width="800" height="205" loading="lazy" decoding="async">
               <div class="experience-title">
                 <h3>Mobile App Developer</h3>
                 <p class="company">Globalstar</p>
