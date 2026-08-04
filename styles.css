@@ -8,7 +8,7 @@
    -------------------------------------------------------------------------- */
 
 :root {
-  /* Colors - Light Mode (default) */
+  /* Colors - Light Mode (default). Keep synchronized with the manual light palette below. */
   --color-bg: #fbfcff;
   --color-bg-alt: #f2f6fc;
   --color-bg-elevated: #ffffff;
@@ -33,6 +33,11 @@
   --color-focus-ring: #155eef;
   --color-backdrop: rgba(251, 252, 255, 0.84);
   --color-hero-glow: rgba(21, 94, 239, 0.13);
+  --gradient-brand: linear-gradient(135deg, #155eef, #0077b6);
+  --gradient-brand-hover: linear-gradient(135deg, #004eeb, #006ea6);
+  --shadow-brand-sm: 0 6px 16px rgba(21, 94, 239, 0.2);
+  --shadow-brand: 0 8px 20px rgba(21, 94, 239, 0.2);
+  --shadow-brand-hover: 0 12px 28px rgba(21, 94, 239, 0.25);
 
   /* Typography - System Font Stack */
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -104,7 +109,7 @@
   --shadow-lg: 0 24px 60px rgba(16, 24, 40, 0.14);
 }
 
-/* Dark Mode Colors */
+/* System dark palette. Keep synchronized with the manual dark palette below. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: #07111f;
@@ -138,7 +143,7 @@
   }
 }
 
-/* Manual Dark Mode Override */
+/* Manual dark palette; mirrors the system dark palette above. */
 [data-theme="dark"] {
   --color-bg: #07111f;
   --color-bg-alt: #0b1728;
@@ -170,7 +175,7 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
 }
 
-/* Manual Light Mode Override */
+/* Manual light palette; mirrors the default light palette above. */
 [data-theme="light"] {
   --color-bg: #fbfcff;
   --color-bg-alt: #f2f6fc;
@@ -1413,8 +1418,8 @@ strong {
 }
 
 .contact-links {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
@@ -1491,7 +1496,7 @@ strong {
    -------------------------------------------------------------------------- */
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 main {
@@ -1573,9 +1578,9 @@ h2 {
   height: 2.25rem;
   flex: 0 0 auto;
   color: #ffffff;
-  background: linear-gradient(135deg, #155eef, #0ba5ec);
+  background: var(--gradient-brand);
   border-radius: 0.7rem;
-  box-shadow: 0 6px 16px rgba(21, 94, 239, 0.2);
+  box-shadow: var(--shadow-brand-sm);
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
   letter-spacing: -0.02em;
@@ -1723,13 +1728,13 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #155eef, #0ba5ec);
-  box-shadow: 0 8px 20px rgba(21, 94, 239, 0.2);
+  background: var(--gradient-brand);
+  box-shadow: var(--shadow-brand);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #004eeb, #0086c9);
-  box-shadow: 0 12px 28px rgba(21, 94, 239, 0.25);
+  background: var(--gradient-brand-hover);
+  box-shadow: var(--shadow-brand-hover);
 }
 
 .btn-secondary {
@@ -1833,7 +1838,7 @@ h2 {
 }
 
 .project-card::before {
-  content: "0" counter(project-card);
+  content: counter(project-card, decimal-leading-zero);
   position: absolute;
   top: var(--space-5);
   right: var(--space-6);
@@ -1845,7 +1850,7 @@ h2 {
 }
 
 .project-card .card-header {
-  padding-right: var(--space-10);
+  padding-right: var(--space-12);
 }
 
 .project-card .card-details li::marker,
@@ -2014,11 +2019,6 @@ h2 {
     align-items: end;
   }
 
-  .contact-links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .site-footer .container {
     flex-direction: row;
     justify-content: space-between;
@@ -2102,13 +2102,14 @@ h2 {
     padding: var(--space-5);
   }
 
-  .contact-links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .contact-links .btn {
     min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-links .btn {
+    width: 100%;
   }
 }
 
@@ -2125,12 +2126,6 @@ h2 {
   .nav-brand {
     width: 1.875rem;
     height: 1.875rem;
-  }
-}
-
-@media (max-width: 420px) {
-  .hero-links .btn {
-    width: 100%;
   }
 }
 
@@ -2296,6 +2291,7 @@ h2 {
   .nav-brand,
   .btn,
   .card,
+  .featured-work,
   .skill-group,
   .status-indicator {
     animation: none;
