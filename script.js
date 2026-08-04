@@ -146,7 +146,7 @@
     });
 
     // Cards stagger within each grid
-    const grids = '.card-grid, .experience-grid, .current-work-grid, .companies-grid';
+    const grids = '.impact-grid, .card-grid, .experience-grid';
     document.querySelectorAll(grids).forEach(grid => {
       grid.querySelectorAll('.card').forEach((card, i) => {
         card.style.setProperty('--reveal-delay', `${i * 60}ms`);
@@ -160,6 +160,11 @@
       group.style.setProperty('--reveal-delay', `${i * 60}ms`);
       group.classList.add('reveal');
       observer.observe(group);
+    });
+
+    document.querySelectorAll('.featured-work').forEach(card => {
+      card.classList.add('reveal');
+      observer.observe(card);
     });
   }
 
