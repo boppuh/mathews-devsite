@@ -6,6 +6,7 @@ The source for [ryanmathews.dev](https://ryanmathews.dev), a static portfolio fo
 
 - Semantic HTML
 - Responsive CSS with light and dark themes
+- Self-hosted Geist and Geist Mono variable fonts
 - Vanilla JavaScript for theme preferences, navigation state, and scroll reveals
 - No framework, dependencies, or build step
 
@@ -40,7 +41,7 @@ The validation script checks HTML structure, duplicate IDs, local references, im
 ├── script.js                  # Theme and navigation behavior
 ├── 404.html                   # Custom not-found page
 ├── writeups/project-1.html    # Threads product-growth case study
-├── assets/                    # Images, logos, favicon, and social card
+├── assets/                    # Images, fonts, font license, logos, favicon, and social card
 ├── resume.pdf                 # Current résumé
 ├── robots.txt
 └── sitemap.xml
