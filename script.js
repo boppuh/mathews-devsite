@@ -42,9 +42,11 @@
   /**
    * Apply theme to document
    */
-  function setTheme(theme) {
+  function setTheme(theme, persist = true) {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_KEY, theme);
+    if (persist) {
+      localStorage.setItem(THEME_KEY, theme);
+    }
 
     // Update toggle button aria-label
     if (themeToggle) {
@@ -65,7 +67,7 @@
 
   // Initialize theme on page load
   const initialTheme = getThemePreference();
-  setTheme(initialTheme);
+  setTheme(initialTheme, false);
 
   // Add click handler to toggle button
   if (themeToggle) {
@@ -77,9 +79,56 @@
     // Only auto-switch if user hasn't manually set a preference
     const stored = localStorage.getItem(THEME_KEY);
     if (!stored) {
-      setTheme(e.matches ? 'dark' : 'light');
+      setTheme(e.matches ? 'dark' : 'light', false);
     }
   });
+
+  // ==========================================================================
+  // Navigation State & Reading Progress
+  // ==========================================================================
+
+  const navLinks = Array.from(document.querySelectorAll('.nav-list a[href^="#"]'));
+  const navTargets = navLinks
+    .map(link => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+    .filter(item => item.section);
+  let scrollUpdateQueued = false;
+
+  function updateNavigationState() {
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = documentHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / documentHeight)) : 0;
+    document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
+
+    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+    const activationLine = headerHeight + window.innerHeight * 0.24;
+    let activeLink = null;
+
+    navTargets.forEach(({ link, section }) => {
+      if (section.getBoundingClientRect().top <= activationLine) {
+        activeLink = link;
+      }
+    });
+
+    navLinks.forEach(link => {
+      if (link === activeLink) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    scrollUpdateQueued = false;
+  }
+
+  function scheduleNavigationUpdate() {
+    if (!scrollUpdateQueued) {
+      scrollUpdateQueued = true;
+      window.requestAnimationFrame(updateNavigationState);
+    }
+  }
+
+  window.addEventListener('scroll', scheduleNavigationUpdate, { passive: true });
+  window.addEventListener('resize', scheduleNavigationUpdate);
+  updateNavigationState();
 
   // ==========================================================================
   // Smooth Scroll (Progressive Enhancement)
