@@ -857,10 +857,19 @@ strong {
   gap: var(--space-6);
 }
 
+.current-work-grid-single {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
 @media (min-width: 768px) {
   .current-work-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-8);
+  }
+
+  .current-work-grid-single {
+    grid-template-columns: 1fr;
   }
 }
 
