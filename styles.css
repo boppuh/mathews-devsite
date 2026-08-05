@@ -548,7 +548,7 @@ strong {
   text-wrap: pretty;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .hero-visual:hover .hero-headshot {
     transform: scale(1.025);
     filter: saturate(0.95) contrast(1.02);
