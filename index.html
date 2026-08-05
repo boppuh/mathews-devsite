@@ -27,11 +27,12 @@
   <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
   <meta name="twitter:image:alt" content="Ryan Mathews - Senior iOS Engineer">
 
-  <meta name="theme-color" content="#fbfcff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#07111f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0e12" media="(prefers-color-scheme: dark)">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="preload" as="font" href="./assets/fonts/Geist-Variable.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="./assets/me-640.avif" type="image/avif">
 
   <!-- Stylesheet -->
@@ -100,59 +101,59 @@
       <div class="container">
         <div class="hero-layout">
           <div class="hero-content">
-            <p class="hero-eyebrow">Founding Engineer · Senior iOS Engineer</p>
             <h1 id="hero-heading">Ryan Mathews</h1>
-
             <p class="hero-title">I build high-scale consumer products and real-time systems for iOS.</p>
-
-            <p class="hero-tagline">
-              Eight years across founding teams, Meta, Audible, and connected-device startups—specializing in offline-first architecture, mobile performance, and products that deliver measurable growth.
-            </p>
-
-            <p class="status-badge">
-              <span class="status-indicator" aria-hidden="true"></span>
-              Founding Engineer at Idle · New York, NY
-            </p>
-
             <div class="hero-links">
-              <a href="#work" class="btn btn-primary">View Selected Work</a>
-              <a href="./resume.pdf" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">View Résumé</a>
+              <a href="#work" class="btn btn-primary">Selected work</a>
+              <a href="./resume.pdf" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Résumé</a>
             </div>
           </div>
 
-          <picture class="hero-visual">
-            <source srcset="./assets/me-640.avif" type="image/avif">
-            <img src="./assets/me.jpg" alt="Ryan Mathews" class="hero-headshot" width="1206" height="1436" decoding="async" fetchpriority="high">
-          </picture>
+          <figure class="hero-visual">
+            <picture>
+              <source srcset="./assets/me-640.avif" type="image/avif">
+              <img src="./assets/me.jpg" alt="Ryan Mathews" class="hero-headshot" width="1206" height="1436" decoding="async" fetchpriority="high">
+            </picture>
+            <figcaption class="hero-meta">
+              <span>Founding Engineer at Idle</span>
+              <span>Senior iOS Engineer / New York, NY</span>
+            </figcaption>
+          </figure>
         </div>
+
+        <p class="hero-context">
+          Eight years across founding teams, Meta, Audible, and connected-device startups. I specialize in offline-first architecture, mobile performance, and products that deliver measurable growth.
+        </p>
       </div>
     </section>
 
     <!-- Product Impact Section -->
     <section class="section" aria-labelledby="impact-heading">
       <div class="container">
-        <div class="section-header">
-          <p class="section-kicker">Selected product impact at Meta</p>
-          <h2 id="impact-heading">Shipping products that move real metrics.</h2>
-          <p class="section-intro">Growth, engagement, and revenue improvements delivered across Instagram and Threads.</p>
-        </div>
-        <div class="impact-grid">
-          <article class="card impact-card">
-            <p class="impact-value">+510K</p>
-            <p class="impact-label">daily original Threads posts</p>
-          </article>
-          <article class="card impact-card">
-            <p class="impact-value">+320K</p>
-            <p class="impact-label">users onboarded per day</p>
-          </article>
-          <article class="card impact-card">
-            <p class="impact-value">+2.12%</p>
-            <p class="impact-label">daily active users</p>
-          </article>
-          <article class="card impact-card">
-            <p class="impact-value">+0.25%</p>
-            <p class="impact-label">Instagram revenue impact</p>
-          </article>
+        <div class="impact-layout">
+          <header class="impact-header">
+            <p class="impact-source">Selected product impact at Meta</p>
+            <h2 id="impact-heading">Shipping products that move real metrics.</h2>
+            <p>Growth, engagement, and revenue improvements delivered across Instagram and Threads.</p>
+          </header>
+          <div class="impact-grid">
+            <article class="impact-card">
+              <p class="impact-value">+510K</p>
+              <p class="impact-label">daily original Threads posts</p>
+            </article>
+            <article class="impact-card">
+              <p class="impact-value">+320K</p>
+              <p class="impact-label">users onboarded per day</p>
+            </article>
+            <article class="impact-card">
+              <p class="impact-value">+2.12%</p>
+              <p class="impact-label">daily active users</p>
+            </article>
+            <article class="impact-card">
+              <p class="impact-value">+0.25%</p>
+              <p class="impact-label">Instagram revenue impact</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
