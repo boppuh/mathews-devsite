@@ -4,7 +4,7 @@
    ========================================================================== */
 
 @font-face {
-  font-family: "Geist";
+  font-family: Geist;
   src: url("./assets/fonts/Geist-Variable.woff2") format("woff2");
   font-style: normal;
   font-weight: 100 900;
@@ -32,7 +32,7 @@
   --color-bg-elevated: light-dark(#fbfcfd, #171d24);
   --color-text: light-dark(#15181d, #f0f2f4);
   --color-text-muted: light-dark(#505966, #a9b1bc);
-  --color-text-light: light-dark(#6d7682, #838d99);
+  --color-text-light: light-dark(#606b76, #838d99);
   --color-primary: light-dark(#315eaa, #8db4f8);
   --color-primary-hover: light-dark(#244a88, #b5cdf9);
   --color-on-primary: light-dark(#f9fbff, #101722);
@@ -59,8 +59,8 @@
   --shadow-brand-hover: none;
 
   /* Typography */
-  --font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-family-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  --font-family: geist, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
+  --font-family-mono: "Geist Mono", "SFMono-Regular", consolas, monospace;
 
   /* Fluid Type Scale using clamp() */
   --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
@@ -474,13 +474,12 @@ strong {
 }
 
 .hero h1 {
-  max-width: 10ch;
+  max-width: 100%;
   margin-bottom: var(--space-5);
   font-size: var(--text-display);
   font-weight: var(--font-semibold);
   letter-spacing: -0.075em;
   line-height: 0.9;
-  white-space: nowrap;
 }
 
 .hero-title {
@@ -2166,6 +2165,7 @@ h2 {
   .btn,
   .card,
   .featured-work,
+  .hero-headshot,
   .skill-group {
     animation: none;
     transition: none;
