@@ -91,44 +91,72 @@
   const navTargets = navLinks
     .map(link => ({ link, section: document.querySelector(link.getAttribute('href')) }))
     .filter(item => item.section);
-  let scrollUpdateQueued = false;
+  const workLink = navLinks.find(link => link.getAttribute('href') === '#work');
+  const projectsSection = document.getElementById('projects');
 
-  function updateNavigationState() {
-    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = documentHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / documentHeight)) : 0;
-    document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
+  if (workLink && projectsSection) {
+    navTargets.push({ link: workLink, section: projectsSection });
+  }
 
-    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-    const activationLine = headerHeight + window.innerHeight * 0.24;
-    let activeLink = null;
-
-    navTargets.forEach(({ link, section }) => {
-      if (section.getBoundingClientRect().top <= activationLine) {
-        activeLink = link;
-      }
-    });
-
+  function setActiveNavigation(activeLink) {
     navLinks.forEach(link => {
-      if (link === activeLink) {
+      if (activeLink && link === activeLink) {
         link.setAttribute('aria-current', 'location');
       } else {
         link.removeAttribute('aria-current');
       }
     });
-
-    scrollUpdateQueued = false;
   }
 
-  function scheduleNavigationUpdate() {
-    if (!scrollUpdateQueued) {
-      scrollUpdateQueued = true;
-      window.requestAnimationFrame(updateNavigationState);
+  const initialActiveLink = navLinks.find(link => link.getAttribute('href') === window.location.hash);
+  setActiveNavigation(initialActiveLink || null);
+
+  let navigationObserver = null;
+
+  function observeNavigationSections() {
+    if (!('IntersectionObserver' in window)) return;
+
+    navigationObserver?.disconnect();
+
+    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+    const visibleNavigationTargets = new Set();
+
+    navigationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          visibleNavigationTargets.add(entry.target);
+        } else {
+          visibleNavigationTargets.delete(entry.target);
+        }
+      });
+
+      const intersecting = Array.from(visibleNavigationTargets)
+        .sort((a, b) => Math.abs(a.getBoundingClientRect().top - headerHeight) - Math.abs(b.getBoundingClientRect().top - headerHeight));
+
+      if (intersecting.length === 0) {
+        setActiveNavigation(null);
+        return;
+      }
+
+      const activeTarget = navTargets.find(item => item.section === intersecting[0]);
+      setActiveNavigation(activeTarget?.link || null);
+    }, {
+      rootMargin: `-${headerHeight}px 0px -58% 0px`,
+      threshold: [0, 0.2]
+    });
+
+    navTargets.forEach(({ section }) => navigationObserver.observe(section));
+  }
+
+  observeNavigationSections();
+
+  if ('ResizeObserver' in window) {
+    const header = document.querySelector('.site-header');
+    if (header) {
+      const headerObserver = new ResizeObserver(observeNavigationSections);
+      headerObserver.observe(header);
     }
   }
-
-  window.addEventListener('scroll', scheduleNavigationUpdate, { passive: true });
-  window.addEventListener('resize', scheduleNavigationUpdate);
-  updateNavigationState();
 
   // ==========================================================================
   // Smooth Scroll (Progressive Enhancement)
@@ -172,7 +200,7 @@
   }
 
   // ==========================================================================
-  // Intersection Observer — Scroll Reveal
+  // Intersection Observer - Scroll Reveal
   // ==========================================================================
 
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
@@ -215,6 +243,86 @@
       story.classList.add('reveal');
       observer.observe(story);
     });
+  }
+
+  // ==========================================================================
+  // GSAP Motion Layer
+  // ==========================================================================
+
+  if (!prefersReducedMotion && window.gsap && window.ScrollTrigger) {
+    const { gsap, ScrollTrigger } = window;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const motionMedia = gsap.matchMedia();
+
+    motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
+      const progress = document.querySelector('.reading-progress');
+
+      if (progress) {
+        gsap.to(progress, {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.2
+          }
+        });
+      }
+
+      gsap.utils.toArray('.project-image-motion').forEach(frame => {
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: frame.parentElement,
+            start: 'top 92%',
+            end: 'bottom 8%',
+            scrub: 0.7
+          }
+        });
+
+        timeline
+          .fromTo(frame, {
+            scale: 0.82,
+            autoAlpha: 0.2
+          }, {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.46,
+            ease: 'none'
+          })
+          .to(frame, {
+            scale: 1.04,
+            autoAlpha: 0.3,
+            duration: 0.54,
+            ease: 'none'
+          });
+      });
+    });
+
+    motionMedia.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const projectsContainer = document.querySelector('.projects-section .container');
+      const projectsHeading = document.querySelector('.projects-heading');
+      const projectShowcase = document.querySelector('.project-showcase');
+
+      if (!projectsContainer || !projectsHeading || !projectShowcase) return undefined;
+
+      const getPinOffset = () => (document.querySelector('.site-header')?.offsetHeight || 0) + 32;
+      const pin = ScrollTrigger.create({
+        trigger: projectsContainer,
+        start: () => `top top+=${getPinOffset()}`,
+        endTrigger: projectShowcase,
+        end: () => `top top+=${getPinOffset()}`,
+        pin: projectsHeading,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      });
+
+      return () => pin.kill();
+    });
+
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
   }
 
 })();
