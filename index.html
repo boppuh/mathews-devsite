@@ -159,85 +159,113 @@
     </section>
 
     <!-- Featured Work Section -->
-    <section id="work" class="section section-alt" aria-labelledby="work-heading">
+    <section id="work" class="section section-alt work-section" aria-labelledby="work-heading">
       <div class="container">
-        <div class="section-header">
-          <p class="section-kicker">Current work</p>
-          <h2 id="work-heading">Building at Idle.</h2>
-          <p class="section-intro">Turning ambitious product ideas into a dependable, fast iOS experience from the first architecture decision onward.</p>
-        </div>
-        <article class="card featured-work">
-          <div class="featured-work-header">
-            <div>
-              <p class="work-meta">Founding Engineer · Jan 2026—Present</p>
-              <h3>AI-powered, offline-first collaboration on iOS</h3>
+        <header class="work-heading">
+          <h2 id="work-heading">
+            Building
+            <span class="inline-project-mark" aria-hidden="true">
+              <img src="./assets/output_icon.jpg" alt="" width="400" height="400" loading="lazy" decoding="async">
+            </span>
+            at Idle.
+          </h2>
+          <p>Turning ambitious product ideas into a dependable, fast iOS experience from the first architecture decision onward.</p>
+        </header>
+
+        <article class="current-work-story">
+          <div class="current-work-lead">
+            <div class="work-role">
+              <p>Founding Engineer at Idle</p>
+              <p>Jan 2026—Present</p>
             </div>
-            <ul class="tag-list" aria-label="Technologies used">
+            <h3>AI-powered, offline-first collaboration on iOS</h3>
+            <p class="current-work-summary">Leading product and systems work for an app that turns natural-language prompts into interactive widgets while keeping collaboration responsive across unreliable networks.</p>
+          </div>
+
+          <div class="current-work-details">
+            <section class="work-capability">
+              <h4>Product engineering</h4>
+              <p>Built the AI widget creation workflow alongside groups, channels, direct messages, and unread-state experiences.</p>
+            </section>
+            <section class="work-capability">
+              <h4>Architecture and performance</h4>
+              <p>Designed optimistic offline sync and recovery, then improved startup and timeline performance with cache-first loading, fetch-around pagination, and deferred hydration.</p>
+            </section>
+          </div>
+
+          <aside class="current-work-stack" aria-labelledby="current-stack-heading">
+            <h4 id="current-stack-heading">Core stack</h4>
+            <ul>
               <li>Swift</li>
               <li>SwiftUI</li>
               <li>UIKit</li>
               <li>GRDB</li>
               <li>WebSockets</li>
             </ul>
-          </div>
-          <p class="featured-summary">Leading product and systems work for an app that turns natural-language prompts into interactive widgets while keeping collaboration responsive across unreliable networks.</p>
-          <div class="featured-work-grid">
-            <div class="feature-block">
-              <h4>Product engineering</h4>
-              <p>Built the AI widget creation workflow alongside groups, channels, direct messages, and unread-state experiences.</p>
-            </div>
-            <div class="feature-block">
-              <h4>Architecture &amp; performance</h4>
-              <p>Designed optimistic offline sync and recovery, then improved startup and timeline performance with cache-first loading, fetch-around pagination, and deferred hydration.</p>
-            </div>
-          </div>
+          </aside>
         </article>
       </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section" aria-labelledby="projects-heading">
+    <section id="projects" class="section projects-section" aria-labelledby="projects-heading">
       <div class="container">
-        <div class="section-header">
-          <p class="section-kicker">Selected projects</p>
+        <header class="projects-heading">
           <h2 id="projects-heading">Systems built end to end.</h2>
-          <p class="section-intro">Independent work spanning mobile clients, secure backend infrastructure, quantitative research, and real-time execution.</p>
-        </div>
-        <div class="card-grid">
-          <article class="card project-card">
-            <div class="card-header">
+          <p>Independent work spanning mobile clients, secure backend infrastructure, quantitative research, and real-time execution.</p>
+        </header>
+
+        <div class="project-showcase">
+          <article class="project-panel project-panel-cobile">
+            <figure class="project-visual project-visual-cobile">
+              <img src="./assets/mathews_technologies_logo.png" alt="Mathews Technologies" width="1280" height="1201" loading="lazy" decoding="async">
+            </figure>
+            <div class="project-copy">
+              <p class="project-type">Mobile agent platform</p>
               <h3>Cobile</h3>
               <p class="card-summary">A secure iOS and backend system for running AI agents against GitHub repositories with visible progress and human approval.</p>
-              <ul class="tag-list" aria-label="Cobile technologies">
-                <li>SwiftUI</li>
-                <li>Fastify</li>
-                <li>AWS</li>
-                <li>WebSockets</li>
-              </ul>
+              <dl class="project-notes">
+                <div>
+                  <dt>Live progress</dt>
+                  <dd>Streams agent events to SwiftUI and replays missed work after reconnecting.</dd>
+                </div>
+                <div>
+                  <dt>Isolation</dt>
+                  <dd>Runs jobs in ephemeral ECS containers against read-only repository snapshots.</dd>
+                </div>
+                <div>
+                  <dt>Human approval</dt>
+                  <dd>Routes patches through a trusted service before opening pull requests.</dd>
+                </div>
+              </dl>
+              <p class="project-stack">SwiftUI / Fastify / AWS / WebSockets</p>
             </div>
-            <ul class="card-details">
-              <li>Streams live agent events to a SwiftUI client and replays missed work after reconnecting.</li>
-              <li>Runs isolated jobs in ephemeral ECS containers against read-only repository snapshots.</li>
-              <li>Routes generated patches through a trusted service that opens pull requests only after approval.</li>
-            </ul>
           </article>
 
-          <article class="card project-card">
-            <div class="card-header">
+          <article class="project-panel project-panel-quant">
+            <figure class="project-visual project-visual-quant">
+              <img src="./assets/mathews_capital_logo.png" alt="Mathews Capital" width="1280" height="670" loading="lazy" decoding="async">
+            </figure>
+            <div class="project-copy">
+              <p class="project-type">Quantitative systems</p>
               <h3>Quantitative Research Platform</h3>
               <p class="card-summary">A research-to-execution platform for testing market hypotheses rigorously and deploying validated strategies.</p>
-              <ul class="tag-list" aria-label="Quantitative platform technologies">
-                <li>Python</li>
-                <li>C++17</li>
-                <li>ClickHouse</li>
-                <li>ML</li>
-              </ul>
+              <dl class="project-notes">
+                <div>
+                  <dt>Research</dt>
+                  <dd>Combines Databento and macro data in ClickHouse across 26 equities.</dd>
+                </div>
+                <div>
+                  <dt>Validation</dt>
+                  <dd>Tests options-flow signals through walk-forward and out-of-sample evaluation.</dd>
+                </div>
+                <div>
+                  <dt>Execution</dt>
+                  <dd>Deploys validated strategies through a C++17 system connected to Interactive Brokers.</dd>
+                </div>
+              </dl>
+              <p class="project-stack">Python / C++17 / ClickHouse / ML</p>
             </div>
-            <ul class="card-details">
-              <li>Integrates Databento and macro data into ClickHouse with walk-forward validation across 26 equities.</li>
-              <li>Researches options-flow signals with agentic strategy pods and systematic out-of-sample evaluation.</li>
-              <li>Executes live strategies through a C++17 system connected to Interactive Brokers.</li>
-            </ul>
           </article>
         </div>
       </div>

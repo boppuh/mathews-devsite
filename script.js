@@ -194,13 +194,13 @@
       observer.observe(el);
     });
 
-    // Cards stagger within each grid
-    const grids = '.impact-grid, .card-grid, .experience-grid';
+    // Cards and project panels stagger within each grid
+    const grids = '.impact-grid, .project-showcase, .experience-grid';
     document.querySelectorAll(grids).forEach(grid => {
-      grid.querySelectorAll('.card').forEach((card, i) => {
-        card.style.setProperty('--reveal-delay', `${i * 60}ms`);
-        card.classList.add('reveal');
-        observer.observe(card);
+      grid.querySelectorAll('.card, .project-panel').forEach((item, i) => {
+        item.style.setProperty('--reveal-delay', `${i * 60}ms`);
+        item.classList.add('reveal');
+        observer.observe(item);
       });
     });
 
@@ -211,9 +211,9 @@
       observer.observe(group);
     });
 
-    document.querySelectorAll('.featured-work').forEach(card => {
-      card.classList.add('reveal');
-      observer.observe(card);
+    document.querySelectorAll('.current-work-story').forEach(story => {
+      story.classList.add('reveal');
+      observer.observe(story);
     });
   }
 
