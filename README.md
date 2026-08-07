@@ -1,4 +1,4 @@
-# Ryan Mathews — Personal Website
+# Ryan Mathews | Personal Website
 
 The source for [ryanmathews.dev](https://ryanmathews.dev), a static portfolio focused on senior iOS engineering, product impact, and real-time systems.
 

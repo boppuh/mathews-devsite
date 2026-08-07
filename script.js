@@ -222,26 +222,33 @@
       observer.observe(el);
     });
 
-    // Cards and project panels stagger within each grid
-    const grids = '.impact-grid, .project-showcase, .experience-grid';
-    document.querySelectorAll(grids).forEach(grid => {
-      grid.querySelectorAll('.card, .project-panel').forEach((item, i) => {
-        item.style.setProperty('--reveal-delay', `${i * 60}ms`);
-        item.classList.add('reveal');
-        observer.observe(item);
-      });
-    });
+    // Related items enter together so each section's hierarchy stays clear.
+    const revealGroups = [
+      { container: '.impact-grid', items: '.impact-card' },
+      { container: '.project-showcase', items: '.project-panel' },
+      { container: '.career-ledger', items: '.career-entry' },
+      { container: '.capability-ledger dl', items: 'div' }
+    ];
 
-    // Skill groups stagger (they're not .card elements)
-    document.querySelectorAll('.skills-grid .skill-group').forEach((group, i) => {
-      group.style.setProperty('--reveal-delay', `${i * 60}ms`);
-      group.classList.add('reveal');
-      observer.observe(group);
+    revealGroups.forEach(({ container, items }) => {
+      document.querySelectorAll(container).forEach(group => {
+        group.querySelectorAll(items).forEach((item, i) => {
+          item.style.setProperty('--reveal-delay', `${i * 60}ms`);
+          item.classList.add('reveal');
+          observer.observe(item);
+        });
+      });
     });
 
     document.querySelectorAll('.current-work-story').forEach(story => {
       story.classList.add('reveal');
       observer.observe(story);
+    });
+
+    document.querySelectorAll('.contact-directory').forEach(directory => {
+      directory.style.setProperty('--reveal-delay', '80ms');
+      directory.classList.add('reveal');
+      observer.observe(directory);
     });
   }
 
