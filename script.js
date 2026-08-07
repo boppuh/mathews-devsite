@@ -301,25 +301,47 @@
     });
 
     motionMedia.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const cleanups = [];
       const projectsContainer = document.querySelector('.projects-section .container');
       const projectsHeading = document.querySelector('.projects-heading');
       const projectShowcase = document.querySelector('.project-showcase');
 
-      if (!projectsContainer || !projectsHeading || !projectShowcase) return undefined;
+      if (projectsContainer && projectsHeading && projectShowcase) {
+        const getPinOffset = () => (document.querySelector('.site-header')?.offsetHeight || 0) + 32;
+        const pin = ScrollTrigger.create({
+          trigger: projectsContainer,
+          start: () => `top top+=${getPinOffset()}`,
+          endTrigger: projectShowcase,
+          end: () => `top top+=${getPinOffset()}`,
+          pin: projectsHeading,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        });
 
-      const getPinOffset = () => (document.querySelector('.site-header')?.offsetHeight || 0) + 32;
-      const pin = ScrollTrigger.create({
-        trigger: projectsContainer,
-        start: () => `top top+=${getPinOffset()}`,
-        endTrigger: projectShowcase,
-        end: () => `top top+=${getPinOffset()}`,
-        pin: projectsHeading,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true
+        cleanups.push(() => pin.kill());
+      }
+
+      const initiativeCards = gsap.utils.toArray('.case-study-initiative');
+
+      initiativeCards.slice(0, -1).forEach((card, index) => {
+        const nextCard = initiativeCards[index + 1];
+        const tween = gsap.to(card, {
+          scale: 0.965,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: nextCard,
+            start: 'top bottom-=18%',
+            end: () => `top top+=${(document.querySelector('.site-header')?.offsetHeight || 0) + 24}`,
+            scrub: 0.5,
+            invalidateOnRefresh: true
+          }
+        });
+
+        cleanups.push(() => tween.kill());
       });
 
-      return () => pin.kill();
+      return () => cleanups.forEach(cleanup => cleanup());
     });
 
     window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
