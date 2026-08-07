@@ -4,16 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Threads Product Growth at Meta — Case Study | Ryan Mathews</title>
+  <title>Threads Product Growth at Meta | Case Study | Ryan Mathews</title>
   <meta name="description" content="Case study on driving user growth through Instagram-to-Threads integration, achieving +510K daily posts and +40% onboarding improvement.">
   <meta name="author" content="Ryan Mathews">
 
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://ryanmathews.dev/writeups/project-1.html">
 
-  <!-- Open Graph Tags -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Threads Product Growth at Meta — Case Study">
+  <meta property="og:title" content="Threads Product Growth at Meta | Case Study">
   <meta property="og:description" content="Driving user growth through Instagram-to-Threads integration at Meta.">
   <meta property="og:url" content="https://ryanmathews.dev/writeups/project-1.html">
   <meta property="og:site_name" content="Ryan Mathews">
@@ -21,26 +19,22 @@
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Ryan Mathews - Senior iOS Engineer">
+  <meta property="og:image:alt" content="Ryan Mathews - Software Engineer">
   <meta property="article:published_time" content="2026-03-04">
-  <meta property="article:modified_time" content="2026-08-04">
+  <meta property="article:modified_time" content="2026-08-07">
 
-  <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Threads Product Growth at Meta — Case Study">
+  <meta name="twitter:title" content="Threads Product Growth at Meta | Case Study">
   <meta name="twitter:description" content="Driving user growth through Instagram-to-Threads integration at Meta.">
   <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
-  <meta name="twitter:image:alt" content="Ryan Mathews - Senior iOS Engineer">
+  <meta name="twitter:image:alt" content="Ryan Mathews - Software Engineer">
 
   <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b0e12" media="(prefers-color-scheme: dark)">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="preload" as="font" href="../assets/fonts/Geist-Variable.woff2" type="font/woff2" crossorigin>
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="../styles.css?v=3.0.2">
+  <link rel="stylesheet" href="../styles.css?v=4.0.0">
 
   <script type="application/ld+json">
   {
@@ -51,7 +45,7 @@
     "url": "https://ryanmathews.dev/writeups/project-1.html",
     "image": "https://ryanmathews.dev/assets/ryan_dev_og.jpg",
     "datePublished": "2026-03-04",
-    "dateModified": "2026-08-04",
+    "dateModified": "2026-08-07",
     "author": {
       "@type": "Person",
       "name": "Ryan Mathews",
@@ -59,396 +53,398 @@
     }
   }
   </script>
-
-  <!-- Additional styles for writeup pages -->
-  <style>
-    .writeup-header {
-      padding: var(--space-12) 0;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    @media (min-width: 640px) {
-      .writeup-header {
-        padding: var(--space-16) 0;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .writeup-header {
-        padding: var(--space-20) 0;
-      }
-    }
-
-    .writeup-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-top: var(--space-4);
-      font-size: var(--text-sm);
-      color: var(--color-text-light);
-    }
-
-    .writeup-content {
-      max-width: var(--max-width-prose);
-    }
-
-    .writeup-content h2 {
-      margin-top: var(--space-12);
-      margin-bottom: var(--space-4);
-      font-size: var(--text-xl);
-    }
-
-    .writeup-content h3 {
-      margin-top: var(--space-8);
-      margin-bottom: var(--space-3);
-      font-size: var(--text-lg);
-    }
-
-    .writeup-content p {
-      color: var(--color-text-muted);
-      line-height: var(--leading-relaxed);
-    }
-
-    .writeup-content ul,
-    .writeup-content ol {
-      margin-bottom: var(--space-4);
-      padding-left: var(--space-6);
-      color: var(--color-text-muted);
-    }
-
-    .writeup-content li {
-      margin-bottom: var(--space-2);
-      line-height: var(--leading-relaxed);
-    }
-
-    .writeup-content code {
-      font-family: var(--font-family-mono);
-      font-size: var(--text-sm);
-      padding: var(--space-1) var(--space-2);
-      background-color: var(--color-tag-bg);
-      border-radius: var(--border-radius-sm);
-    }
-
-    .writeup-content pre {
-      margin-bottom: var(--space-4);
-      padding: var(--space-4);
-      background-color: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius);
-      overflow-x: auto;
-    }
-
-    .writeup-content pre code {
-      padding: 0;
-      background: none;
-    }
-
-    .results-grid {
-      display: grid;
-      gap: var(--space-4);
-      margin: var(--space-8) 0;
-    }
-
-    @media (min-width: 640px) {
-      .results-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .result-card {
-      padding: var(--space-5);
-      background-color: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg);
-      text-align: center;
-    }
-
-    .result-card .number {
-      display: block;
-      font-size: var(--text-3xl);
-      font-weight: var(--font-bold);
-      color: var(--color-primary);
-      margin-bottom: var(--space-1);
-      letter-spacing: -0.02em;
-    }
-
-    .result-card .label {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      margin-bottom: var(--space-6);
-      font-size: var(--text-sm);
-      font-weight: var(--font-medium);
-      color: var(--color-text-muted);
-      transition: color var(--transition-fast);
-    }
-
-    .back-link:hover {
-      color: var(--color-primary);
-    }
-
-    .writeup-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-6) 0;
-      margin-top: var(--space-12);
-      border-top: 1px solid var(--color-border);
-    }
-
-    .writeup-nav a {
-      font-weight: var(--font-medium);
-    }
-  </style>
 </head>
-<body>
-  <!-- Skip to main content link for accessibility -->
+<body class="case-study-page">
   <a href="#main" class="skip-link">Skip to main content</a>
 
-  <!-- Navigation -->
   <header class="site-header">
     <nav class="nav-container" aria-label="Main navigation">
       <a class="nav-brand" href="../index.html" aria-label="Ryan Mathews, back to homepage">RM</a>
       <div class="nav-actions">
         <ul class="nav-list">
           <li><a href="../index.html">Home</a></li>
-          <li><a href="../index.html#projects">Projects</a></li>
+          <li><a href="../index.html#projects" aria-current="location">Projects</a></li>
           <li><a href="../index.html#experience">Experience</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
         </ul>
         <button
-        id="theme-toggle"
-        class="theme-toggle"
-        aria-label="Toggle dark mode"
-        title="Toggle dark mode"
-      >
-        <svg class="theme-icon-light" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="theme-icon-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        >
+          <svg class="theme-icon-light" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
       </div>
     </nav>
+    <span class="reading-progress" aria-hidden="true"></span>
   </header>
 
   <main id="main">
-    <!-- Writeup Header -->
-    <header class="writeup-header">
-      <div class="container">
-        <a href="../index.html#projects" class="back-link">
-          &larr; Back to Projects
-        </a>
+    <header class="case-study-hero">
+      <div class="container case-study-hero-inner">
+        <a href="../index.html#projects" class="case-study-back-link">&larr; Selected work</a>
+        <h1>
+          Threads product growth at
+          <span class="case-study-brand-word">
+            <img src="../assets/meta-logo.svg" width="48" height="48" alt="">
+            Meta
+          </span>
+        </h1>
+        <p class="case-study-dek">
+          Three Instagram integrations increased Threads acquisition, engagement, and original content at global scale.
+        </p>
 
-        <h1>Threads Product Growth at Meta</h1>
-
-        <div class="card-tags" style="margin-top: var(--space-4);">
-          <span class="tag">Swift</span>
-          <span class="tag">Objective-C</span>
-          <span class="tag">PHP/Hack</span>
-          <span class="tag">iOS</span>
-          <span class="tag">A/B Testing</span>
-        </div>
-
-        <div class="writeup-meta">
-          <span>Meta (Instagram/Threads)</span>
-          <span>&middot;</span>
-          <span>Software Engineer</span>
-          <span>&middot;</span>
-          <span>2023&ndash;2025</span>
-        </div>
+        <dl class="case-study-facts">
+          <div>
+            <dt>Role</dt>
+            <dd>Software Engineer</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>Instagram Feed</dd>
+          </div>
+          <div>
+            <dt>Window</dt>
+            <dd>2023 to 2025</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Product growth</dd>
+          </div>
+        </dl>
       </div>
     </header>
 
-    <!-- Writeup Content -->
-    <article class="section">
-      <div class="container writeup-content">
-
-        <h2>Overview</h2>
-        <p>
-          As a Software Engineer on the Instagram Feed team, I led the product development,
-          engineering execution, and data analysis for multiple high-impact integrations between
-          Instagram and Threads. These projects were critical to Threads' growth strategy, driving
-          significant increases in user acquisition, engagement, and content creation.
-        </p>
-
-        <h2>The Challenge</h2>
-        <p>
-          Threads launched in July 2023 and needed to rapidly grow its user base and content volume.
-          The challenge was clear: how do we leverage Instagram's massive user base to drive Threads
-          adoption without disrupting the Instagram experience?
-        </p>
-        <p>
-          Key constraints included:
-        </p>
-        <ul>
-          <li><strong>User experience:</strong> Changes couldn't feel intrusive or damage Instagram engagement</li>
-          <li><strong>Technical complexity:</strong> Two apps with different architectures needed seamless integration</li>
-          <li><strong>Measurement:</strong> We needed robust A/B testing to validate impact without risking regressions</li>
-          <li><strong>Scale:</strong> Any solution had to work at Instagram's scale (billions of daily interactions)</li>
-        </ul>
-
-        <h2>Solution: Multi-Pronged Integration Strategy</h2>
-
-        <h3>1. IG Feed &rarr; Threads Crossposting</h3>
-        <p>
-          I developed and launched the crossposting feature that allows users to simultaneously share
-          content to both Instagram and Threads. This reduced friction for content creators and
-          helped bootstrap Threads' content ecosystem.
-        </p>
-        <p>
-          The implementation required:
-        </p>
-        <ul>
-          <li>New UI affordances in the Instagram post composer</li>
-          <li>Backend coordination between Instagram and Threads posting pipelines</li>
-          <li>Handling edge cases: failed posts, partial failures, content format differences</li>
-          <li>Analytics infrastructure to track cross-platform content performance</li>
-        </ul>
-
-        <h3>2. Threads Onboarding from IG Feed</h3>
-        <p>
-          I led product development for a new onboarding flow that surfaces Threads content and
-          sign-up prompts within the Instagram Feed. This capitalized on high-intent moments when
-          users were already engaged with social content.
-        </p>
-        <p>
-          The approach involved:
-        </p>
-        <ul>
-          <li>Identifying optimal placement within the feed algorithm</li>
-          <li>Multiple A/B tests to optimize conversion rates</li>
-          <li>Personalization based on user behavior and friend graph</li>
-          <li>Careful measurement to ensure no negative impact on Instagram metrics</li>
-        </ul>
-
-        <h3>3. Navigation Flow Optimization</h3>
-        <p>
-          I developed and launched a navigation change where tapping on a Thread in the IG Feed
-          directs users to the tapped post being pinned to the top of the Threads main feed,
-          rather than a permalink view. This encouraged deeper engagement with the Threads app.
-        </p>
-
-        <h2>Results</h2>
-        <p>
-          These integrations delivered significant, measurable impact on Threads' growth metrics:
-        </p>
-
-        <div class="results-grid">
-          <div class="result-card">
-            <span class="number">+510K</span>
-            <span class="label">Daily original posts</span>
-          </div>
-          <div class="result-card">
-            <span class="number">+40%</span>
-            <span class="label">Onboarded users</span>
-          </div>
-          <div class="result-card">
-            <span class="number">+320K</span>
-            <span class="label">New users per day</span>
+    <section class="case-study-tech" aria-labelledby="case-study-tech-heading">
+      <div class="container">
+        <h2 class="sr-only" id="case-study-tech-heading">Core technologies</h2>
+        <div class="stack-marquee case-study-marquee" tabindex="0" role="group" aria-labelledby="case-study-tech-heading">
+          <div class="stack-marquee-track">
+            <ul class="stack-marquee-group">
+              <li>Swift</li>
+              <li>Objective-C</li>
+              <li>PHP/Hack</li>
+              <li>iOS</li>
+              <li>A/B testing</li>
+            </ul>
+            <ul class="stack-marquee-group" aria-hidden="true">
+              <li>Swift</li>
+              <li>Objective-C</li>
+              <li>PHP/Hack</li>
+              <li>iOS</li>
+              <li>A/B testing</li>
+            </ul>
           </div>
         </div>
-
-        <p>
-          Additional metrics from specific projects:
-        </p>
-        <ul>
-          <li><strong>Crossposting:</strong> +510K daily original posts, +11% top-line original posts, +185K eWAU on Threads</li>
-          <li><strong>Onboarding flow:</strong> +40% onboarded users (+320K per day), +50K new daily active users</li>
-          <li><strong>Navigation change:</strong> +2.12% eDAU, +1.34% eWAU, +1.74% post impressions on Threads</li>
-        </ul>
-
-        <h2>Technical Approach</h2>
-
-        <h3>iOS Architecture</h3>
-        <p>
-          The iOS implementation was primarily in Swift, with some Objective-C for legacy integration
-          points. Key architectural decisions included:
-        </p>
-        <ul>
-          <li>Protocol-oriented design for flexible component composition</li>
-          <li>Dependency injection for testability</li>
-          <li>Feature flags for gradual rollout and A/B testing</li>
-          <li>Comprehensive analytics instrumentation</li>
-        </ul>
-
-        <h3>Cross-Platform Consistency</h3>
-        <p>
-          Server-side components were built in PHP/Hack to ensure consistency across platforms.
-          This included:
-        </p>
-        <ul>
-          <li>Unified API contracts for iOS and Android</li>
-          <li>Server-driven UI for rapid iteration</li>
-          <li>Centralized experiment configuration</li>
-        </ul>
-
-        <h3>Data-Driven Development</h3>
-        <p>
-          Every feature was developed with measurement in mind:
-        </p>
-        <ul>
-          <li>Pre-defined success metrics and guardrails</li>
-          <li>A/B testing with statistical rigor</li>
-          <li>Real-time dashboards for monitoring rollouts</li>
-          <li>Post-launch analysis to inform iteration</li>
-        </ul>
-
-        <h2>Lessons Learned</h2>
-        <ol>
-          <li>
-            <strong>Start with measurement:</strong> Defining success metrics upfront forced clarity
-            on goals and enabled rapid iteration based on data.
-          </li>
-          <li>
-            <strong>Cross-functional collaboration is essential:</strong> These projects required tight
-            coordination between iOS, Android, backend, design, product, and data science teams.
-          </li>
-          <li>
-            <strong>Small changes can have outsized impact:</strong> The navigation change was
-            relatively simple technically but drove significant engagement improvements.
-          </li>
-          <li>
-            <strong>Protect the core experience:</strong> Our focus on guardrail metrics ensured we
-            grew Threads without harming Instagram&mdash;a critical constraint for long-term success.
-          </li>
-        </ol>
-
-        <h2>Related Work</h2>
-        <p>
-          During this period, I also contributed to several other Instagram projects:
-        </p>
-        <ul>
-          <li>Re-architected the IG Feed attribution system from Obj-C to Swift</li>
-          <li>Developed video playback controls for Reels in the main Feed</li>
-          <li>Led Digital Systems Act compliance across iOS surfaces</li>
-          <li>Increased E2E test coverage from 10% to 100% for core Explore flows</li>
-        </ul>
-
-        <!-- Navigation between writeups -->
-        <nav class="writeup-nav" aria-label="Project navigation">
-          <span></span>
-          <a href="../index.html#projects">All Projects &rarr;</a>
-        </nav>
       </div>
+    </section>
+
+    <article class="case-study-article">
+      <section class="case-study-section" id="overview">
+        <div class="container case-study-overview-grid">
+          <div class="case-study-overview-copy">
+            <p class="case-study-kicker">The growth brief</p>
+            <h2>Use Instagram's scale without weakening its experience.</h2>
+            <p>
+              As a Software Engineer on the Instagram Feed team, I led product development,
+              engineering execution, and data analysis for multiple integrations between Instagram
+              and Threads. The work targeted user acquisition, engagement, and content creation.
+            </p>
+            <p>
+              Threads launched in July 2023 and needed to rapidly grow its user base and content
+              volume. Instagram created a powerful distribution path, but only if every integration
+              remained useful to Instagram users and measurable at global scale.
+            </p>
+          </div>
+
+          <aside class="case-study-constraints" aria-labelledby="constraints-heading">
+            <h3 id="constraints-heading">Four constraints shaped every decision.</h3>
+            <dl>
+              <div>
+                <dt>User experience</dt>
+                <dd>Changes could not feel intrusive or damage Instagram engagement.</dd>
+              </div>
+              <div>
+                <dt>Technical complexity</dt>
+                <dd>Two apps with different architectures needed seamless integration.</dd>
+              </div>
+              <div>
+                <dt>Measurement</dt>
+                <dd>Robust experiments had to validate impact without risking regressions.</dd>
+              </div>
+              <div>
+                <dt>Scale</dt>
+                <dd>Every solution had to support billions of daily Instagram interactions.</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-strategy" id="strategy">
+        <div class="container">
+          <header class="case-study-section-heading">
+            <p class="case-study-kicker">The strategy</p>
+            <h2>Three interventions, one growth loop.</h2>
+            <p>
+              Each intervention reduced a different source of friction between discovering Threads,
+              joining it, and contributing original content.
+            </p>
+          </header>
+
+          <div class="case-study-initiative-stack">
+            <article class="case-study-initiative case-study-initiative-crosspost">
+              <div class="case-study-initiative-title">
+                <p>Content supply</p>
+                <h3>Crossposting from Instagram Feed</h3>
+              </div>
+              <div class="case-study-initiative-copy">
+                <p class="case-study-initiative-summary">
+                  I developed and launched a composer flow that lets people share content to Instagram
+                  and Threads at the same time, lowering the cost of contributing to Threads.
+                </p>
+                <div class="case-study-initiative-details">
+                  <div>
+                    <h4>Engineering work</h4>
+                    <ul>
+                      <li>Added new UI affordances to the Instagram post composer.</li>
+                      <li>Coordinated Instagram and Threads posting pipelines.</li>
+                      <li>Handled failed posts, partial failures, and format differences.</li>
+                      <li>Instrumented cross-platform content performance.</li>
+                    </ul>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>Primary outcome</dt>
+                      <dd>+510K daily original posts</dd>
+                    </div>
+                    <div>
+                      <dt>Supporting lift</dt>
+                      <dd>+11% top-line original posts and +185K eWAU</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+
+            <article class="case-study-initiative case-study-initiative-onboarding">
+              <div class="case-study-initiative-title">
+                <p>User acquisition</p>
+                <h3>Onboarding inside Instagram Feed</h3>
+              </div>
+              <div class="case-study-initiative-copy">
+                <p class="case-study-initiative-summary">
+                  I led a flow that surfaces Threads content and sign-up prompts during high-intent
+                  moments when people are already engaged with social content.
+                </p>
+                <div class="case-study-initiative-details">
+                  <div>
+                    <h4>Product development</h4>
+                    <ul>
+                      <li>Identified placements within the feed algorithm.</li>
+                      <li>Ran multiple experiments to optimize conversion.</li>
+                      <li>Personalized prompts using behavior and friend graph signals.</li>
+                      <li>Protected Instagram guardrail metrics throughout rollout.</li>
+                    </ul>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>Primary outcome</dt>
+                      <dd>+40% onboarded users, or +320K per day</dd>
+                    </div>
+                    <div>
+                      <dt>Supporting lift</dt>
+                      <dd>+50K new daily active users</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+
+            <article class="case-study-initiative case-study-initiative-navigation">
+              <div class="case-study-initiative-title">
+                <p>Activation</p>
+                <h3>Navigation that encourages exploration</h3>
+              </div>
+              <div class="case-study-initiative-copy">
+                <p class="case-study-initiative-summary">
+                  I changed the destination for a Thread opened from Instagram Feed. The selected post
+                  stayed pinned at the top of the Threads main feed instead of opening in a permalink view.
+                </p>
+                <div class="case-study-initiative-details">
+                  <div>
+                    <h4>Why it worked</h4>
+                    <p>
+                      Preserving the tapped post maintained context while placing the broader Threads
+                      feed directly underneath it, creating a natural path to deeper engagement.
+                    </p>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>Engagement lift</dt>
+                      <dd>+2.12% eDAU and +1.34% eWAU</dd>
+                    </div>
+                    <div>
+                      <dt>Content lift</dt>
+                      <dd>+1.74% post impressions</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-impact" id="impact">
+        <div class="container">
+          <header class="case-study-section-heading">
+            <p class="case-study-kicker">Measured impact</p>
+            <h2>Growth across supply, acquisition, and engagement.</h2>
+          </header>
+
+          <div class="case-study-impact-grid">
+            <article class="case-study-impact-primary">
+              <p class="case-study-impact-value">+510K</p>
+              <h3>daily original posts</h3>
+              <p>Crossposting also increased top-line original posts by 11% and Threads eWAU by 185K.</p>
+            </article>
+            <article class="case-study-impact-secondary">
+              <p class="case-study-impact-value">+40%</p>
+              <h3>onboarded users</h3>
+              <p>The onboarding flow also added 50K new daily active users.</p>
+            </article>
+            <article class="case-study-impact-tertiary">
+              <p class="case-study-impact-value">+320K</p>
+              <h3>new users per day</h3>
+              <p>Additional people onboarded through the Instagram Feed flow.</p>
+            </article>
+          </div>
+
+          <div class="case-study-navigation-result">
+            <p>Navigation optimization</p>
+            <dl>
+              <div><dt>eDAU</dt><dd>+2.12%</dd></div>
+              <div><dt>eWAU</dt><dd>+1.34%</dd></div>
+              <div><dt>Post impressions</dt><dd>+1.74%</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-study-section" id="engineering">
+        <div class="container case-study-engineering-grid">
+          <header class="case-study-section-heading">
+            <p class="case-study-kicker">Engineering approach</p>
+            <h2>Built for iteration without losing control.</h2>
+            <p>
+              The system paired native iOS architecture with server-driven controls and measurement
+              from the first implementation decision.
+            </p>
+          </header>
+
+          <div class="case-study-engineering-ledger">
+            <article>
+              <h3>Native architecture</h3>
+              <p>Swift handled the primary implementation, with Objective-C at legacy integration points.</p>
+              <ul>
+                <li>Protocol-oriented component composition</li>
+                <li>Dependency injection for testability</li>
+                <li>Feature flags for gradual rollout</li>
+                <li>Comprehensive analytics instrumentation</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Cross-platform control</h3>
+              <p>PHP/Hack services kept behavior consistent across iOS and Android.</p>
+              <ul>
+                <li>Unified API contracts</li>
+                <li>Server-driven UI for rapid iteration</li>
+                <li>Centralized experiment configuration</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Measurement by design</h3>
+              <p>Every feature began with explicit success criteria and guardrails.</p>
+              <ul>
+                <li>Pre-defined success metrics</li>
+                <li>A/B testing with statistical rigor</li>
+                <li>Real-time rollout dashboards</li>
+                <li>Post-launch analysis for iteration</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-lessons" id="lessons">
+        <div class="container">
+          <header class="case-study-section-heading">
+            <p class="case-study-kicker">What carried forward</p>
+            <h2>Four principles from shipping at this scale.</h2>
+          </header>
+          <div class="case-study-lessons-list">
+            <article>
+              <h3>Start with measurement.</h3>
+              <p>Defining success metrics upfront created clarity and made rapid iteration possible.</p>
+            </article>
+            <article>
+              <h3>Work across the whole system.</h3>
+              <p>Results depended on tight coordination across mobile, backend, design, product, and data science.</p>
+            </article>
+            <article>
+              <h3>Small interaction changes can compound.</h3>
+              <p>The navigation change was relatively simple technically and still improved engagement meaningfully.</p>
+            </article>
+            <article>
+              <h3>Protect the core experience.</h3>
+              <p>Guardrail metrics kept Threads growth from coming at the expense of Instagram.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-related" id="related-work">
+        <div class="container case-study-related-grid">
+          <header class="case-study-section-heading">
+            <p class="case-study-kicker">Related work</p>
+            <h2>More Instagram systems shipped during this period.</h2>
+          </header>
+          <ul>
+            <li>Re-architected the Instagram Feed attribution system from Objective-C to Swift.</li>
+            <li>Developed video playback controls for Reels in the main Feed.</li>
+            <li>Led Digital Services Act compliance across iOS surfaces.</li>
+            <li>Increased end-to-end test coverage from 10% to 100% for core Explore flows.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="case-study-next">
+        <div class="container">
+          <div>
+            <p class="case-study-kicker">Continue exploring</p>
+            <h2>More product systems and measurable outcomes.</h2>
+          </div>
+          <a href="../index.html#projects" class="btn btn-primary">Back to selected work &rarr;</a>
+        </div>
+      </section>
     </article>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <p>&copy; <span id="current-year">2024</span> Ryan Mathews. All rights reserved.</p>
@@ -456,7 +452,8 @@
     </div>
   </footer>
 
-  <!-- Script -->
-  <script src="../script.js?v=3.0.2"></script>
+  <script src="../assets/vendor/gsap/gsap.min.js?v=3.15.0"></script>
+  <script src="../assets/vendor/gsap/ScrollTrigger.min.js?v=3.15.0"></script>
+  <script src="../script.js?v=4.0.0"></script>
 </body>
 </html>
