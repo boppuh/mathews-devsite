@@ -119,7 +119,6 @@
   --transition-fast: 150ms var(--ease-out);
   --transition-normal: 200ms var(--ease-out);
   --transition-slow: 300ms var(--ease-out);
-  --scroll-progress: 0;
   --reveal-delay: 0ms;
 
   /* Shadows */
@@ -348,6 +347,18 @@ strong {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--color-border);
   z-index: 100;
+}
+
+.reading-progress {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
 }
 
 .nav-container {
@@ -586,7 +597,12 @@ strong {
   border-radius: var(--border-radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .btn:hover {
@@ -869,11 +885,24 @@ strong {
   margin: 0;
 }
 
-.current-work-stack ul {
+.stack-marquee {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stack-marquee-track {
+  min-width: 0;
+}
+
+.stack-marquee-group {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3) var(--space-6);
   list-style: none;
+}
+
+.stack-marquee-group[aria-hidden="true"] {
+  display: none;
 }
 
 .current-work-stack li {
@@ -906,6 +935,14 @@ strong {
   place-items: center;
   overflow: hidden;
   background-color: var(--color-bg-alt);
+}
+
+.project-image-motion {
+  width: 100%;
+  min-height: 15rem;
+  display: grid;
+  place-items: center;
+  transform-origin: center center;
 }
 
 .project-visual img {
@@ -1034,22 +1071,14 @@ strong {
     align-items: start;
   }
 
-  .current-work-stack ul {
+  .stack-marquee-group {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .project-showcase {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  .project-panel-cobile {
-    grid-column: span 7;
-  }
-
-  .project-panel-quant {
-    grid-column: span 5;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   }
 
   .project-panel-cobile .project-notes div {
@@ -1060,6 +1089,56 @@ strong {
 
   .project-panel-cobile .project-notes dt {
     margin-bottom: 0;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .stack-marquee {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .stack-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: stack-marquee 24s linear infinite;
+  }
+
+  .stack-marquee-group,
+  .stack-marquee-group[aria-hidden="true"] {
+    flex: none;
+    display: flex;
+    gap: clamp(var(--space-8), 4vw, var(--space-16));
+    padding-right: clamp(var(--space-8), 4vw, var(--space-16));
+  }
+
+  .stack-marquee-group li {
+    min-width: 8rem;
+  }
+
+  .stack-marquee:hover .stack-marquee-track,
+  .stack-marquee:focus-within .stack-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .project-showcase {
+    transition: grid-template-columns 700ms var(--ease-out);
+  }
+
+  .project-showcase:has(.project-panel-cobile:hover) {
+    grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+  }
+
+  .project-showcase:has(.project-panel-quant:hover) {
+    grid-template-columns: minmax(0, 5.5fr) minmax(0, 6.5fr);
+  }
+}
+
+@keyframes stack-marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -2156,6 +2235,16 @@ h2 {
     transition: none !important;
   }
 
+  .project-image-motion {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .reading-progress {
+    display: none !important;
+  }
+
   html {
     font-size: 12pt;
   }
@@ -2291,6 +2380,16 @@ h2 {
   .project-visual img {
     animation: none;
     transition: none;
+  }
+
+  .project-image-motion {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .reading-progress {
+    display: none;
   }
 
   .reveal {

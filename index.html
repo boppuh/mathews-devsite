@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ryan Mathews — Senior iOS Engineer</title>
-  <meta name="description" content="Senior iOS engineer and founding engineer with 8 years of experience building high-scale consumer products, offline-first mobile apps, and real-time systems.">
+  <title>Ryan Mathews — Software Engineer</title>
+  <meta name="description" content="Software engineer and founding engineer with 8 years of experience building high-scale consumer products, offline-first mobile apps, and real-time systems.">
 
   <link rel="canonical" href="https://ryanmathews.dev/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Ryan Mathews — Senior iOS Engineer">
+  <meta property="og:title" content="Ryan Mathews — Software Engineer">
   <meta property="og:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
   <meta property="og:url" content="https://ryanmathews.dev/">
   <meta property="og:site_name" content="Ryan Mathews">
@@ -22,7 +22,7 @@
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ryan Mathews — Senior iOS Engineer">
+  <meta name="twitter:title" content="Ryan Mathews — Software Engineer">
   <meta name="twitter:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
   <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
   <meta name="twitter:image:alt" content="Ryan Mathews - Senior iOS Engineer">
@@ -36,7 +36,7 @@
   <link rel="preload" as="image" href="./assets/me-640.avif" type="image/avif">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=3.0.2">
 
   <script type="application/ld+json">
   {
@@ -93,6 +93,7 @@
         </button>
       </div>
     </nav>
+    <span class="reading-progress" aria-hidden="true"></span>
   </header>
 
   <main id="main">
@@ -195,13 +196,24 @@
 
           <aside class="current-work-stack" aria-labelledby="current-stack-heading">
             <h4 id="current-stack-heading">Core stack</h4>
-            <ul>
-              <li>Swift</li>
-              <li>SwiftUI</li>
-              <li>UIKit</li>
-              <li>GRDB</li>
-              <li>WebSockets</li>
-            </ul>
+            <div class="stack-marquee" tabindex="0" role="group" aria-labelledby="current-stack-heading">
+              <div class="stack-marquee-track">
+                <ul class="stack-marquee-group">
+                  <li>Swift</li>
+                  <li>SwiftUI</li>
+                  <li>UIKit</li>
+                  <li>GRDB</li>
+                  <li>WebSockets</li>
+                </ul>
+                <ul class="stack-marquee-group" aria-hidden="true">
+                  <li>Swift</li>
+                  <li>SwiftUI</li>
+                  <li>UIKit</li>
+                  <li>GRDB</li>
+                  <li>WebSockets</li>
+                </ul>
+              </div>
+            </div>
           </aside>
         </article>
       </div>
@@ -218,7 +230,9 @@
         <div class="project-showcase">
           <article class="project-panel project-panel-cobile">
             <figure class="project-visual project-visual-cobile">
-              <img src="./assets/mathews_technologies_logo.png" alt="Mathews Technologies" width="1280" height="1201" loading="lazy" decoding="async">
+              <div class="project-image-motion">
+                <img src="./assets/mathews_technologies_logo.png" alt="Mathews Technologies" width="1280" height="1201" loading="lazy" decoding="async">
+              </div>
             </figure>
             <div class="project-copy">
               <p class="project-type">Mobile agent platform</p>
@@ -244,7 +258,9 @@
 
           <article class="project-panel project-panel-quant">
             <figure class="project-visual project-visual-quant">
-              <img src="./assets/mathews_capital_logo.png" alt="Mathews Capital" width="1280" height="670" loading="lazy" decoding="async">
+              <div class="project-image-motion">
+                <img src="./assets/mathews_capital_logo.png" alt="Mathews Capital" width="1280" height="670" loading="lazy" decoding="async">
+              </div>
             </figure>
             <div class="project-copy">
               <p class="project-type">Quantitative systems</p>
@@ -440,7 +456,9 @@
     </div>
   </footer>
 
-  <!-- Script (theme toggle + year update) -->
-  <script src="./script.js"></script>
+  <!-- Motion runtime and site behavior -->
+  <script src="./assets/vendor/gsap/gsap.min.js?v=3.15.0"></script>
+  <script src="./assets/vendor/gsap/ScrollTrigger.min.js?v=3.15.0"></script>
+  <script src="./script.js?v=3.0.2"></script>
 </body>
 </html>
