@@ -1116,7 +1116,8 @@ strong {
     min-width: 8rem;
   }
 
-  .stack-marquee:hover .stack-marquee-track {
+  .stack-marquee:hover .stack-marquee-track,
+  .stack-marquee:focus-within .stack-marquee-track {
     animation-play-state: paused;
   }
 }
