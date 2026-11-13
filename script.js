@@ -20,6 +20,9 @@
     yearElement.textContent = new Date().getFullYear();
   }
 
+  // The desktop preview has its own navigation and does not use page scroll effects.
+  if (document.body.classList.contains('desktop-mode')) return;
+
   // ==========================================================================
   // Theme Toggle
   // ==========================================================================
