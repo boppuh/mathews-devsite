@@ -37,7 +37,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./styles.css?v=5.0.0">
-  <link rel="stylesheet" href="./desktop.css?v=1">
+  <link rel="stylesheet" href="./desktop.css?v=2">
 
   <script type="application/ld+json">
   {
@@ -120,13 +120,20 @@
         </a>
       </nav>
 
-      <section class="desktop-window desktop-welcome" id="desktop-welcome" aria-labelledby="desktop-welcome-heading" hidden>
-        <header class="desktop-titlebar">
+      <section class="desktop-window desktop-welcome" id="desktop-welcome" aria-labelledby="desktop-welcome-heading" data-desktop-window="welcome" hidden>
+        <header class="desktop-titlebar" tabindex="-1">
           <span><span class="desktop-icon icon-window" aria-hidden="true"></span> Welcome</span>
-          <button class="desktop-button desktop-close" type="button" data-close-window aria-label="Close Welcome">
-            <span aria-hidden="true">×</span>
-          </button>
+          <div class="desktop-title-controls">
+            <button class="desktop-button desktop-move" type="button" data-window-action="move" aria-label="Move Welcome" aria-pressed="false" aria-describedby="desktop-move-help" title="Move Welcome">Move</button>
+            <button class="desktop-button desktop-minimize" type="button" data-window-action="minimize" aria-label="Minimize Welcome" title="Minimize Welcome"></button>
+            <button class="desktop-button desktop-maximize" type="button" data-window-action="maximize" aria-label="Maximize Welcome" title="Maximize Welcome"></button>
+            <button class="desktop-button desktop-close" type="button" data-window-action="close" aria-label="Close Welcome">
+              <span class="desktop-close-symbol" aria-hidden="true">×</span>
+              <span class="desktop-back-label" aria-hidden="true">Back</span>
+            </button>
+          </div>
         </header>
+        <p class="desktop-move-hint" aria-hidden="true">Arrow keys to move. Enter to finish. Escape to cancel.</p>
         <div class="desktop-window-body">
           <div class="desktop-intro">
             <picture>
@@ -446,14 +453,20 @@
     </section>
 
     <!-- About and Capabilities Section -->
-    <section id="about" class="section about-section" aria-labelledby="about-heading">
-      <header class="desktop-titlebar desktop-about-bar" id="desktop-about-bar" hidden>
+    <section id="about" class="section about-section" aria-labelledby="about-heading" data-desktop-window="about">
+      <header class="desktop-titlebar" tabindex="-1" hidden>
         <span><span class="desktop-icon icon-document" aria-hidden="true"></span> About Me.txt</span>
-        <button class="desktop-button desktop-close" type="button" data-close-window aria-label="Back to desktop (close About Me)">
-          <span class="desktop-close-symbol" aria-hidden="true">×</span>
-          <span class="desktop-back-label" aria-hidden="true">Back</span>
-        </button>
+        <div class="desktop-title-controls">
+          <button class="desktop-button desktop-move" type="button" data-window-action="move" aria-label="Move About Me" aria-pressed="false" aria-describedby="desktop-move-help" title="Move About Me">Move</button>
+          <button class="desktop-button desktop-minimize" type="button" data-window-action="minimize" aria-label="Minimize About Me" title="Minimize About Me"></button>
+          <button class="desktop-button desktop-maximize" type="button" data-window-action="maximize" aria-label="Maximize About Me" title="Maximize About Me"></button>
+          <button class="desktop-button desktop-close" type="button" data-window-action="close" aria-label="Close About Me">
+            <span class="desktop-close-symbol" aria-hidden="true">×</span>
+            <span class="desktop-back-label" aria-hidden="true">Back</span>
+          </button>
+        </div>
       </header>
+      <p class="desktop-move-hint" aria-hidden="true">Arrow keys to move. Enter to finish. Escape to cancel.</p>
       <div class="container">
         <header class="about-heading">
           <h2 id="about-heading" tabindex="-1">Product judgment, systems depth.</h2>
@@ -513,6 +526,7 @@
     </section>
 
     <div class="desktop-taskbar" id="desktop-taskbar" hidden>
+      <p class="sr-only" id="desktop-move-help">Use the arrow keys to move the window. Press Enter to finish or Escape to cancel.</p>
       <button class="desktop-button desktop-start" id="desktop-start" type="button" aria-expanded="false" aria-controls="desktop-start-panel">
         <span class="desktop-start-mark" aria-hidden="true">RM</span> Start
       </button>
@@ -529,10 +543,7 @@
           <li class="desktop-start-divider"><a href="?">Read as a page</a></li>
         </ul>
       </nav>
-      <button class="desktop-button desktop-task" id="desktop-task" type="button" hidden>
-        <span class="desktop-icon" id="desktop-task-icon" aria-hidden="true"></span>
-        <span id="desktop-task-label"></span>
-      </button>
+      <nav class="desktop-tasks" id="desktop-tasks" aria-label="Open windows"></nav>
       <a class="desktop-button desktop-reading-link" href="?">Read as a page</a>
     </div>
   </main>
@@ -547,7 +558,7 @@
   </footer>
 
   <!-- Motion runtime and site behavior -->
-  <script src="./desktop.js?v=1"></script>
+  <script src="./desktop.js?v=2"></script>
   <script defer src="./assets/vendor/gsap/gsap.min.js?v=3.15.0"></script>
   <script defer src="./assets/vendor/gsap/ScrollTrigger.min.js?v=3.15.0"></script>
   <script defer src="./script.js?v=5.0.1"></script>
