@@ -11,24 +11,38 @@
   const startPanel = document.getElementById('desktop-start-panel');
   const tasks = document.getElementById('desktop-tasks');
   const compact = matchMedia('(max-width: 47.99rem)');
-  const windows = {
-    welcome: createWindow('desktop-welcome', 'Welcome', 'icon-window'),
-    about: createWindow('about', 'About Me', 'icon-document')
-  };
+  const chrome = document.getElementById('desktop-window-chrome');
+  const windows = new Map();
 
   // Least recently active to most recently active, including minimized windows.
   const windowStack = [];
   let activeWindow = null;
   let drag = null;
   let keyboardMove = null;
+  const windowOffsets = [0, 24, 36, 48];
 
-  function createWindow(id, label, icon) {
-    const section = document.getElementById(id);
+  function createWindow(section, index) {
+    const { windowLabel: label, windowIcon: icon } = section.dataset;
+    const frame = chrome.content.cloneNode(true);
+    const titlebar = frame.querySelector('.desktop-titlebar');
+    titlebar.querySelector('.desktop-window-title').textContent = label;
+    titlebar.querySelector('.desktop-window-icon').classList.add(icon);
+    const moveButton = titlebar.querySelector('[data-window-action="move"]');
+    const minimizeButton = titlebar.querySelector('[data-window-action="minimize"]');
+    moveButton.setAttribute('aria-label', `Move ${label}`);
+    moveButton.title = `Move ${label}`;
+    minimizeButton.setAttribute('aria-label', `Minimize ${label}`);
+    minimizeButton.title = `Minimize ${label}`;
+    section.prepend(frame);
+    section.style.setProperty('--window-offset', `${windowOffsets[index % windowOffsets.length]}px`);
+    const body = section.querySelector(':scope > .container, :scope > .desktop-window-body');
+    body.tabIndex = 0;
+
     const task = document.createElement('button');
     task.type = 'button';
     task.className = 'desktop-button desktop-task';
     task.dataset.taskWindow = section.dataset.desktopWindow;
-    task.setAttribute('aria-controls', id);
+    task.setAttribute('aria-controls', section.id);
 
     const taskIcon = document.createElement('span');
     taskIcon.className = `desktop-icon ${icon}`;
@@ -40,12 +54,14 @@
     return {
       section,
       task,
+      body,
       heading: document.getElementById(section.getAttribute('aria-labelledby')),
-      titlebar: section.querySelector('.desktop-titlebar'),
-      maximizeButton: section.querySelector('[data-window-action="maximize"]'),
-      closeButton: section.querySelector('[data-window-action="close"]'),
-      moveButton: section.querySelector('[data-window-action="move"]'),
+      titlebar,
+      maximizeButton: titlebar.querySelector('[data-window-action="maximize"]'),
+      closeButton: titlebar.querySelector('[data-window-action="close"]'),
+      moveButton,
       label,
+      target: section,
       state: 'closed',
       maximized: false,
       launcher: null
@@ -55,7 +71,7 @@
   function renderWindows() {
     main.dataset.desktopWindow = activeWindow?.section.dataset.desktopWindow || '';
 
-    for (const entry of Object.values(windows)) {
+    for (const entry of windows.values()) {
       const { section, task, label } = entry;
       section.dataset.windowState = entry.state;
       section.toggleAttribute('data-active', entry === activeWindow);
@@ -84,12 +100,23 @@
     windowStack.push(entry);
     activeWindow = entry;
     renderWindows();
+    revealTask(entry.task);
     if (pushHistory) writeLocation(entry, true);
+  }
+
+  function revealTask(task) {
+    const taskBounds = task.getBoundingClientRect();
+    const stripBounds = tasks.getBoundingClientRect();
+    if (taskBounds.left < stripBounds.left) {
+      tasks.scrollLeft -= stripBounds.left - taskBounds.left;
+    } else if (taskBounds.right > stripBounds.right) {
+      tasks.scrollLeft += taskBounds.right - stripBounds.right;
+    }
   }
 
   function writeLocation(entry, push = false) {
     const url = new URL(location.href);
-    url.hash = entry ? entry.section.id : '';
+    url.hash = entry?.target.id || '';
     if (url.href === location.href) return;
     if (push) history.pushState(null, '', url);
     else history.replaceState(null, '', url);
@@ -97,16 +124,36 @@
 
   function focusHeading(entry) {
     const heading = entry.heading.getBoundingClientRect();
-    const titlebar = entry.titlebar.getBoundingClientRect();
-    const target = heading.top < titlebar.bottom ? entry.titlebar : entry.heading;
+    const body = entry.body.getBoundingClientRect();
+    const target = heading.top < body.top || heading.bottom > body.bottom
+      ? entry.titlebar
+      : entry.heading;
     target.focus({ preventScroll: true });
   }
 
-  function openWindow(entry, launcher, pushHistory = false) {
-    if (launcher) entry.launcher = launcher.closest('#desktop-start-panel') ? start : launcher;
+  function openWindow(entry, launcher) {
+    if (launcher && !entry.section.contains(launcher)) {
+      entry.launcher = launcher.closest('#desktop-start-panel') ? start : launcher;
+    }
     entry.state = 'open';
-    activate(entry, pushHistory);
+    activate(entry);
     keepWindowInBounds(entry);
+  }
+
+  function showTarget(entry, target, moveFocus = true) {
+    if (target === entry.section) {
+      entry.body.scrollTop = 0;
+      if (moveFocus) focusHeading(entry);
+      return;
+    }
+
+    const heading = target.querySelector('h2, h3, h4') || target;
+    const top = heading.getBoundingClientRect().top - entry.body.getBoundingClientRect().top;
+    entry.body.scrollTop += top - 12;
+    if (moveFocus) {
+      target.tabIndex = -1;
+      target.focus({ preventScroll: true });
+    }
   }
 
   function hideWindow(entry, state) {
@@ -115,6 +162,7 @@
     if (state === 'closed') {
       windowStack.splice(windowStack.indexOf(entry), 1);
       entry.maximized = false;
+      entry.target = entry.section;
       entry.section.style.removeProperty('--window-x');
       entry.section.style.removeProperty('--window-y');
     }
@@ -134,6 +182,7 @@
     const launcherVisible = launcher?.getClientRects().length
       && getComputedStyle(launcher).visibility === 'visible';
     (launcherVisible ? launcher : start).focus();
+    if (activeWindow) revealTask(activeWindow.task);
     entry.launcher = null;
   }
 
@@ -194,36 +243,48 @@
     if (open) startPanel.querySelector('a').focus();
   }
 
-  function readLocation(moveFocus = false) {
-    const hash = location.hash;
-    const entry = Object.values(windows).find(candidate => hash === `#${candidate.section.id}`)
-      || ((!hash || hash === '#main') ? windows.welcome : null);
-    if (entry) {
-      setStartOpen(false);
-      openWindow(entry);
-      if (moveFocus) focusHeading(entry);
-      return true;
+  function fragmentTarget(hash) {
+    try {
+      const id = hash && hash !== '#main' ? decodeURIComponent(hash.slice(1)) : 'desktop-welcome';
+      return document.getElementById(id);
+    } catch {
+      return null;
     }
+  }
 
-    // Sections outside the prototype use their original anchors in reading view.
+  function showReadingView() {
     const readingUrl = new URL(location.href);
     readingUrl.searchParams.delete('view');
     location.replace(readingUrl);
-    return false;
   }
-
-  if (!readLocation()) return;
-  workspace.hidden = false;
-  taskbar.hidden = false;
-  windows.welcome.section.hidden = false;
-  windows.about.titlebar.hidden = false;
-  windows.about.section.querySelector('.container').tabIndex = 0;
-  document.body.classList.add('desktop-mode');
 
   function entryFor(element) {
-    const section = element.closest('section[data-desktop-window]');
-    return section ? windows[section.dataset.desktopWindow] : null;
+    return windows.get(element?.closest('section[data-desktop-window]'));
   }
+
+  function navigate(entry, target, launcher, moveFocus = true) {
+    setStartOpen(false);
+    entry.target = target;
+    openWindow(entry, launcher);
+    if (launcher) writeLocation(entry, true);
+    showTarget(entry, target, moveFocus);
+  }
+
+  const initialTarget = fragmentTarget(location.hash);
+  if (!initialTarget?.closest('section[data-desktop-window]')) {
+    showReadingView();
+    return;
+  }
+
+  main.querySelectorAll('section[data-desktop-window]').forEach((section, index) => {
+    windows.set(section, createWindow(section, index));
+    section.hidden = false;
+  });
+  main.querySelectorAll('.desktop-content-index').forEach(index => { index.hidden = false; });
+  workspace.hidden = false;
+  taskbar.hidden = false;
+  document.body.classList.add('desktop-mode');
+  navigate(entryFor(initialTarget), initialTarget, null, false);
 
   document.querySelector('.skip-link').addEventListener('click', (event) => {
     event.preventDefault();
@@ -233,14 +294,15 @@
   start.addEventListener('click', () => setStartOpen(startPanel.hidden));
 
   main.addEventListener('click', (event) => {
-    const shortcut = event.target.closest('[data-open-window]');
+    const shortcut = event.target.closest('a[href^="#"]');
     if (shortcut && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-      event.preventDefault();
-      const entry = windows[shortcut.dataset.openWindow];
-      setStartOpen(false);
-      openWindow(entry, shortcut, true);
-      focusHeading(entry);
-      return;
+      const target = fragmentTarget(shortcut.hash);
+      const entry = entryFor(target);
+      if (entry) {
+        event.preventDefault();
+        navigate(entry, target, shortcut);
+        return;
+      }
     }
 
     if (!startPanel.hidden && !event.target.closest('#desktop-start, #desktop-start-panel')) {
@@ -251,8 +313,9 @@
 
     const task = event.target.closest('[data-task-window]');
     if (task) {
-      const entry = windows[task.dataset.taskWindow];
-      openWindow(entry, null, true);
+      const entry = windows.get(document.getElementById(task.getAttribute('aria-controls')));
+      openWindow(entry);
+      writeLocation(entry, true);
       focusHeading(entry);
       return;
     }
@@ -285,6 +348,13 @@
     if (event.button !== 0 || !event.isPrimary) return;
     const entry = entryFor(event.target);
     if (!entry || entry.state !== 'open') return;
+    // A window link records its destination when clicked, even in a background window.
+    const link = event.target.closest('a[href^="#"]');
+    if (link && entryFor(fragmentTarget(link.hash))
+      && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+      event.preventDefault();
+      return;
+    }
     const hadFocusInBackground = activeWindow !== entry
       && activeWindow?.section.contains(document.activeElement);
     activate(entry, true);
@@ -339,7 +409,7 @@
     }
   });
 
-  for (const entry of Object.values(windows)) {
+  for (const entry of windows.values()) {
     entry.moveButton.addEventListener('blur', () => {
       if (keyboardMove?.entry === entry) finishKeyboardMove();
     });
@@ -359,6 +429,11 @@
     renderWindows();
   });
 
-  window.addEventListener('resize', () => Object.values(windows).forEach(keepWindowInBounds));
-  window.addEventListener('hashchange', () => readLocation(true));
+  window.addEventListener('resize', () => windows.forEach(keepWindowInBounds));
+  window.addEventListener('hashchange', () => {
+    const target = fragmentTarget(location.hash);
+    const entry = entryFor(target);
+    if (entry) navigate(entry, target);
+    else showReadingView();
+  });
 })();
