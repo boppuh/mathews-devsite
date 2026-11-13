@@ -21,6 +21,10 @@ python3 -m http.server 8000
 
 Then open [http://localhost:8000](http://localhost:8000).
 
+Open [the Windows 95 desktop preview](http://localhost:8000/?view=desktop) to try
+Welcome, About Me, and the Start menu. The taskbar's **Read as a page** link
+opens the full portfolio.
+
 ## Validation
 
 Run the launch-readiness checks with:
@@ -28,6 +32,7 @@ Run the launch-readiness checks with:
 ```bash
 python3 scripts/validate_site.py
 node --check script.js
+node --check desktop.js
 xmllint --noout sitemap.xml
 ```
 

@@ -1,0 +1,536 @@
+/*
+ * Windows 95-inspired chrome. Beveled borders adapted from 98.css
+ * (MIT, Copyright 2020 Jordan Scales). See assets/98css-LICENSE.txt.
+ */
+.desktop-mode {
+  --desktop-wallpaper: #008080;
+  --desktop-surface: #c0c0c0;
+  --desktop-paper: #fcfcfa;
+  --desktop-ink: #171717;
+  --desktop-muted: #484848;
+  --desktop-blue: #000080;
+  --desktop-light: #fff;
+  --desktop-face: #dfdfdf;
+  --desktop-shadow: #808080;
+  --desktop-frame: #0a0a0a;
+  --desktop-raised: inset -1px -1px var(--desktop-frame), inset 1px 1px var(--desktop-light),
+    inset -2px -2px var(--desktop-shadow), inset 2px 2px var(--desktop-face);
+  --desktop-sunken: inset -1px -1px var(--desktop-light), inset 1px 1px var(--desktop-frame),
+    inset -2px -2px var(--desktop-face), inset 2px 2px var(--desktop-shadow);
+  --desktop-ui: Tahoma, "MS Sans Serif", Arial, sans-serif;
+}
+
+.desktop-preview-link a {
+  text-decoration: underline;
+}
+
+@media screen {
+  .desktop-mode > .site-header,
+  .desktop-mode > .site-footer,
+  .desktop-mode #main > .hero,
+  .desktop-mode #main > .section:not(#about),
+  .desktop-mode #main:not([data-desktop-window="about"]) > #about {
+    display: none;
+  }
+
+  .desktop-mode #main {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: 100svh;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--desktop-wallpaper);
+    color: var(--desktop-ink);
+    color-scheme: light;
+    font: 1rem / 1.5 var(--desktop-ui);
+  }
+
+  .desktop-mode .desktop-workspace {
+    display: contents;
+  }
+
+  .desktop-shortcuts {
+    grid-area: 1 / 1;
+    align-self: start;
+    max-height: 100%;
+    padding: 1rem 0.625rem;
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+
+  .desktop-shortcuts a {
+    display: grid;
+    justify-items: center;
+    gap: 0.25rem;
+    padding: 0.45rem 0.25rem;
+    color: #fff;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .desktop-shortcuts a > span:last-child {
+    padding: 0.15rem 0.25rem;
+    background: #006d6d;
+  }
+
+  .desktop-shortcuts a:is(:hover, :focus-visible) > span:last-child {
+    background: var(--desktop-blue);
+  }
+
+  .desktop-icon {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    background: url("./assets/win9x-icons.png") calc(var(--icon-index, 0) * -2rem) 0 / 10rem 2rem no-repeat;
+    image-rendering: pixelated;
+  }
+
+  .icon-window { --icon-index: 0; }
+  .icon-document { --icon-index: 1; }
+  .icon-award { --icon-index: 2; }
+  .icon-folder { --icon-index: 3; }
+  .icon-cabinet { --icon-index: 4; }
+
+  .desktop-window,
+  .desktop-mode #about {
+    padding: 3px;
+    background: var(--desktop-surface);
+    color: var(--desktop-ink);
+    box-shadow: var(--desktop-raised);
+  }
+
+  .desktop-welcome:not([hidden]),
+  .desktop-mode #main[data-desktop-window="about"] > #about {
+    grid-area: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    justify-self: center;
+    width: min(47rem, calc(100% - 2rem));
+    min-height: 0;
+    margin: clamp(1rem, 8dvh, 5rem) 1rem 1rem;
+    max-height: calc(100% - clamp(1rem, 8dvh, 5rem) - 1rem);
+  }
+
+  .desktop-titlebar:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    gap: 0.75rem;
+    padding: 3px 4px 3px 8px;
+    background: var(--desktop-blue);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .desktop-titlebar > span {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .desktop-titlebar .desktop-icon,
+  .desktop-task .desktop-icon {
+    width: 1rem;
+    height: 1rem;
+    background-size: 5rem 1rem;
+    background-position-x: calc(var(--icon-index, 0) * -1rem);
+  }
+
+  .desktop-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-height: 2.375rem;
+    padding: 0.35rem 1rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--desktop-surface);
+    color: var(--desktop-ink);
+    box-shadow: var(--desktop-raised);
+    font: 700 0.875rem / 1.2 var(--desktop-ui);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .desktop-button:hover {
+    background: var(--desktop-face);
+    color: var(--desktop-ink);
+  }
+
+  .desktop-button:is(:active, [aria-expanded="true"]),
+  .desktop-task {
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-button:focus-visible,
+  .desktop-start-panel a:focus-visible {
+    outline: 2px dotted currentColor;
+    outline-offset: -5px;
+  }
+
+  .desktop-close {
+    min-width: 2rem;
+    min-height: 1.75rem;
+    padding: 0;
+    font-size: 1.25rem;
+  }
+
+  .desktop-back-label {
+    display: none;
+  }
+
+  .desktop-window-body,
+  .desktop-mode #about > .container {
+    min-height: 0;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: clamp(1rem, 3vw, 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .desktop-intro {
+    display: grid;
+    grid-template-columns: clamp(5rem, 14vw, 9rem) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.75rem);
+  }
+
+  .desktop-intro img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    padding: 2px;
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #about > .container:focus-visible {
+    outline-offset: -4px;
+  }
+
+  .desktop-intro h1 {
+    margin: 0;
+    color: var(--desktop-ink);
+    font: 700 clamp(1.65rem, 4vw, 2.75rem) / 1.1 var(--desktop-ui);
+    letter-spacing: -0.035em;
+  }
+
+  .desktop-intro p {
+    max-width: 37ch;
+    margin: 0;
+  }
+
+  .desktop-intro .desktop-role {
+    margin: 0.375rem 0 0.75rem;
+    color: var(--desktop-blue);
+    font-weight: 700;
+  }
+
+  .desktop-highlights {
+    margin-top: 1.25rem;
+    padding: 0.875rem 1rem;
+    background: var(--desktop-paper);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-highlights h2 {
+    margin: 0 0 0.5rem;
+    color: var(--desktop-ink);
+    font: 700 0.9rem / 1.3 var(--desktop-ui);
+    letter-spacing: 0;
+  }
+
+  .desktop-highlights dl {
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  .desktop-highlights dl > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+  }
+
+  .desktop-highlights dt {
+    font-size: 0.875rem;
+  }
+
+  .desktop-highlights dd {
+    color: var(--desktop-blue);
+    font: 700 1.125rem / 1.3 var(--font-family-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .desktop-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .desktop-primary {
+    outline: 1px solid var(--desktop-frame);
+    outline-offset: -1px;
+  }
+
+  .desktop-status {
+    display: flex;
+    flex-wrap: wrap;
+    flex: none;
+    gap: 2px;
+    padding-top: 2px;
+    color: var(--desktop-muted);
+    font-size: 0.8125rem;
+  }
+
+  .desktop-status span {
+    flex: 1 auto;
+    padding: 0.25rem 0.5rem;
+    box-shadow: inset 1px 1px var(--desktop-shadow), inset -1px -1px var(--desktop-light);
+  }
+
+  .desktop-mode #about > .container {
+    margin: 3px 1px 1px;
+    background: var(--desktop-paper);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #about .about-heading {
+    margin-bottom: 1rem;
+  }
+
+  .desktop-mode #about h2 {
+    max-width: 26ch;
+    margin: 0;
+    color: var(--desktop-ink);
+    font: 700 clamp(1.5rem, 3vw, 2rem) / 1.15 var(--desktop-ui);
+    letter-spacing: -0.025em;
+  }
+
+  .desktop-mode #about .about-editorial {
+    display: block;
+  }
+
+  .desktop-mode #about .about-copy p {
+    max-width: 62ch;
+    color: var(--desktop-ink);
+    font: 400 1rem / 1.55 var(--desktop-ui);
+  }
+
+  .desktop-mode #about .capability-ledger {
+    margin-top: 1.25rem;
+    padding-top: 0.875rem;
+    border-color: var(--desktop-shadow);
+  }
+
+  .desktop-mode #about .capability-ledger h3 {
+    margin-bottom: 0.75rem;
+    color: var(--desktop-ink);
+    font: 700 1rem / 1.4 var(--desktop-ui);
+  }
+
+  .desktop-mode #about .capability-ledger dl {
+    gap: 0.75rem 1.25rem;
+  }
+
+  .desktop-mode #about .capability-ledger dt,
+  .desktop-mode #about .capability-ledger dd {
+    color: var(--desktop-ink);
+    font-size: 0.875rem;
+  }
+
+  .desktop-taskbar:not([hidden]) {
+    position: relative;
+    grid-area: 2 / 1 / 3 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-width: 0;
+    padding: 0.375rem 0.5rem max(0.375rem, env(safe-area-inset-bottom));
+    border-top: 2px solid var(--desktop-light);
+    background: var(--desktop-surface);
+  }
+
+  .desktop-start,
+  .desktop-task,
+  .desktop-reading-link {
+    padding-inline: 0.625rem;
+  }
+
+  .desktop-start-mark {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--desktop-blue);
+    color: #fff;
+    font: 700 0.625rem / 1 var(--desktop-ui);
+  }
+
+  .desktop-task[hidden] {
+    display: none;
+  }
+
+  .desktop-task {
+    justify-content: flex-start;
+    width: min(11rem, 100%);
+    min-width: 0;
+  }
+
+  .desktop-task span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .desktop-reading-link {
+    margin-left: auto;
+  }
+
+  .desktop-start-panel:not([hidden]) {
+    position: absolute;
+    inset: auto auto 100% 0.375rem;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    width: min(16.5rem, calc(100% - 0.75rem));
+    max-height: calc(100dvh - 4.5rem - env(safe-area-inset-bottom));
+    overflow: auto;
+  }
+
+  .desktop-start-banner {
+    margin: 0;
+    padding: 0.5rem 0.25rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: var(--desktop-blue);
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .desktop-start-panel ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  .desktop-start-panel a {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    padding: 0.25rem 0.625rem;
+    color: var(--desktop-ink);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .desktop-start-panel a:is(:hover, :focus-visible) {
+    background: var(--desktop-blue);
+    color: #fff;
+  }
+
+  .desktop-start-divider {
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  @media (max-width: 47.99rem) {
+    .desktop-mode #main {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .desktop-mode #main[data-desktop-window]:not([data-desktop-window=""]) .desktop-shortcuts {
+      display: none;
+    }
+
+    .desktop-shortcuts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+      align-self: start;
+      width: 100%;
+    }
+
+    .desktop-welcome:not([hidden]),
+    .desktop-mode #main[data-desktop-window="about"] > #about {
+      grid-area: 1 / 1;
+      align-self: stretch;
+      width: auto;
+      max-height: none;
+      margin: 0.375rem;
+      justify-self: stretch;
+    }
+
+    .desktop-window-body,
+    .desktop-mode #about > .container {
+      flex: 1;
+    }
+
+    .desktop-close {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+    }
+
+    .desktop-about-bar .desktop-close {
+      padding-inline: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .desktop-about-bar .desktop-close-symbol {
+      display: none;
+    }
+
+    .desktop-back-label {
+      display: inline;
+    }
+
+    .desktop-button:not(.desktop-close) {
+      min-height: 2.75rem;
+    }
+  }
+
+  @media (max-width: 23rem) {
+    .desktop-intro {
+      grid-template-columns: 4rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .desktop-actions .desktop-button {
+      padding-inline: 0.75rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .desktop-button,
+    .desktop-window,
+    .desktop-mode #about {
+      border: 1px solid ButtonText;
+    }
+
+    .desktop-titlebar,
+    .desktop-start-banner {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}
+
+@media print {
+  .desktop-workspace,
+  .desktop-titlebar,
+  .desktop-taskbar,
+  .desktop-preview-link {
+    display: none !important;
+  }
+}
