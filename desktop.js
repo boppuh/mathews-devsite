@@ -76,7 +76,7 @@
     }
   }
 
-  function activate(entry) {
+  function activate(entry, pushHistory = false) {
     if (entry === activeWindow) return;
     if (keyboardMove && keyboardMove.entry !== entry) finishKeyboardMove();
     const index = windowStack.indexOf(entry);
@@ -84,6 +84,7 @@
     windowStack.push(entry);
     activeWindow = entry;
     renderWindows();
+    if (pushHistory) writeLocation(entry, true);
   }
 
   function writeLocation(entry, push = false) {
@@ -104,9 +105,8 @@
   function openWindow(entry, launcher, pushHistory = false) {
     if (launcher) entry.launcher = launcher.closest('#desktop-start-panel') ? start : launcher;
     entry.state = 'open';
-    activate(entry);
+    activate(entry, pushHistory);
     keepWindowInBounds(entry);
-    if (pushHistory) writeLocation(entry, true);
   }
 
   function hideWindow(entry, state) {
@@ -278,7 +278,7 @@
 
   main.addEventListener('focusin', (event) => {
     const entry = entryFor(event.target);
-    if (entry?.state === 'open') activate(entry);
+    if (entry?.state === 'open') activate(entry, true);
   });
 
   main.addEventListener('pointerdown', (event) => {
@@ -287,7 +287,7 @@
     if (!entry || entry.state !== 'open') return;
     const hadFocusInBackground = activeWindow !== entry
       && activeWindow?.section.contains(document.activeElement);
-    activate(entry);
+    activate(entry, true);
     if (hadFocusInBackground) focusHeading(entry);
 
     if (compact.matches || entry.maximized || event.target.closest('button')) return;
