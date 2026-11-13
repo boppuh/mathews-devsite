@@ -22,8 +22,9 @@ python3 -m http.server 8000
 Then open [http://localhost:8000](http://localhost:8000).
 
 Open [the Windows 95 desktop preview](http://localhost:8000/?view=desktop) to try
-Welcome, About Me, and the Start menu. The taskbar's **Read as a page** link
-opens the full portfolio.
+Welcome, About Me, and the Start menu. Drag a title bar or use **Move** and the
+arrow keys to position a window. Use the taskbar to switch windows or restore a
+minimized one. **Read as a page** opens the full portfolio.
 
 ## Validation
 
