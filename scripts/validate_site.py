@@ -111,10 +111,13 @@ def parse_html(path: Path) -> SiteHTMLParser:
 
 def local_target(page: Path, reference: str) -> Path | None:
     parsed = urlparse(reference)
-    if parsed.scheme or reference.startswith(("mailto:", "tel:", "data:")):
+    if parsed.scheme or parsed.netloc:
         return None
-    relative = unquote(parsed.path)
-    return (page.parent / relative).resolve() if relative else page.resolve()
+    path = unquote(parsed.path)
+    if not path:
+        return page.resolve()
+    target = ROOT / path.lstrip("/") if path.startswith("/") else page.parent / path
+    return (target / "index.html" if path.endswith("/") else target).resolve()
 
 
 def validate_references(page: Path, parser: SiteHTMLParser, parsed_pages: dict[Path, SiteHTMLParser]) -> None:
