@@ -2,13 +2,18 @@
  * Windows 95-inspired chrome. Beveled borders adapted from 98.css
  * (MIT, Copyright 2020 Jordan Scales). See assets/98css-LICENSE.txt.
  */
-.desktop-mode {
+:is(.desktop-mode, .desktop-document) {
   --desktop-wallpaper: #008080;
   --desktop-surface: #c0c0c0;
   --desktop-paper: #fcfcfa;
   --desktop-ink: #171717;
   --desktop-muted: #484848;
   --desktop-blue: #000080;
+  --desktop-title: #000080;
+  --desktop-title-ink: #fff;
+  --desktop-inactive-title: #515151;
+  --desktop-shortcut-label: #006d6d;
+  --desktop-scheme: light;
   --desktop-light: #fff;
   --desktop-face: #dfdfdf;
   --desktop-shadow: #808080;
@@ -18,6 +23,23 @@
   --desktop-sunken: inset -1px -1px var(--desktop-light), inset 1px 1px var(--desktop-frame),
     inset -2px -2px var(--desktop-face), inset 2px 2px var(--desktop-shadow);
   --desktop-ui: Tahoma, "MS Sans Serif", Arial, sans-serif;
+}
+
+html[data-desktop-theme="dark"] :is(.desktop-mode, .desktop-document) {
+  --desktop-wallpaper: #163737;
+  --desktop-surface: #30363e;
+  --desktop-paper: #1c2026;
+  --desktop-ink: #f1f3f5;
+  --desktop-muted: #b9c4ce;
+  --desktop-blue: #aacaff;
+  --desktop-title: #243f73;
+  --desktop-inactive-title: #444b56;
+  --desktop-shortcut-label: #173131;
+  --desktop-scheme: dark;
+  --desktop-light: #747e8b;
+  --desktop-face: #3b444f;
+  --desktop-shadow: #66717e;
+  --desktop-frame: #11151b;
 }
 
 .desktop-preview-link a {
@@ -48,7 +70,7 @@
     overflow: hidden;
     background: var(--desktop-wallpaper);
     color: var(--desktop-ink);
-    color-scheme: light;
+    color-scheme: var(--desktop-scheme);
     font: 1rem / 1.5 var(--desktop-ui);
   }
 
@@ -79,11 +101,11 @@
 
   .desktop-shortcuts a > span:last-child {
     padding: 0.15rem 0.25rem;
-    background: #006d6d;
+    background: var(--desktop-shortcut-label);
   }
 
   .desktop-shortcuts a:is(:hover, :focus-visible) > span:last-child {
-    background: var(--desktop-blue);
+    background: var(--desktop-title);
   }
 
   .desktop-shortcuts a:focus-visible {
@@ -143,6 +165,10 @@
       max-height: calc(100% - var(--window-top) - max(2rem, calc(var(--window-offset, 0px) + 0.375rem)));
     }
 
+    .desktop-mode .desktop-display[data-window-state="open"]:not([hidden]) {
+      --window-width: min(25rem, calc(100% - 14rem));
+    }
+
     .desktop-mode [data-window-state="open"][data-maximized] {
       inset: 0.375rem;
       width: auto;
@@ -165,8 +191,8 @@
       flex: none;
       margin: 0;
       padding: 0.25rem 0.5rem;
-      background: var(--desktop-blue);
-      color: #fff;
+      background: var(--desktop-title);
+      color: var(--desktop-title-ink);
       font-size: 0.8125rem;
     }
   }
@@ -178,8 +204,8 @@
     flex: none;
     gap: 0.75rem;
     padding: 3px 4px 3px 8px;
-    background: var(--desktop-blue);
-    color: #fff;
+    background: var(--desktop-title);
+    color: var(--desktop-title-ink);
     font-size: 0.875rem;
     font-weight: 700;
   }
@@ -191,7 +217,7 @@
   }
 
   .desktop-mode [data-window-state="open"]:not([data-active]) .desktop-titlebar {
-    background: #515151;
+    background: var(--desktop-inactive-title);
   }
 
   .desktop-titlebar .desktop-icon,
@@ -217,6 +243,7 @@
     box-shadow: var(--desktop-raised);
     font: 700 0.875rem / 1.2 var(--desktop-ui);
     text-decoration: none;
+    transition: none;
     white-space: nowrap;
     cursor: pointer;
   }
@@ -397,6 +424,38 @@
   .desktop-primary {
     outline: 1px solid var(--desktop-frame);
     outline-offset: -1px;
+  }
+
+  .desktop-display h2 {
+    margin: 0 0 1.125rem;
+    color: var(--desktop-ink);
+    font: 700 1.5rem / 1.2 var(--desktop-ui);
+    letter-spacing: 0;
+  }
+
+  .desktop-theme-options {
+    margin: 0;
+    padding: 0.375rem 0.75rem 0.5rem;
+    border: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-theme-options legend {
+    padding-inline: 0.375rem;
+    font-weight: 700;
+  }
+
+  .desktop-theme-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+  }
+
+  .desktop-theme-options input {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: var(--desktop-blue);
   }
 
   .desktop-status {
@@ -622,8 +681,8 @@
   }
 
   .desktop-mode .section[data-desktop-window] .desktop-content-index a:is(:hover, :focus-visible) {
-    background: var(--desktop-blue);
-    color: var(--desktop-light);
+    background: var(--desktop-title);
+    color: var(--desktop-title-ink);
   }
 
   .desktop-mode #projects .project-showcase {
@@ -663,6 +722,10 @@
     filter: brightness(0.35) contrast(1.2);
     transform: none;
     transition: none;
+  }
+
+  html[data-desktop-theme="dark"] .desktop-mode #projects .project-visual img {
+    filter: none;
   }
 
   .desktop-mode #projects .project-copy {
@@ -884,8 +947,8 @@
     place-items: center;
     width: 1.25rem;
     height: 1.25rem;
-    background: var(--desktop-blue);
-    color: #fff;
+    background: var(--desktop-title);
+    color: var(--desktop-title-ink);
     font: 700 0.625rem / 1 var(--desktop-ui);
   }
 
@@ -932,8 +995,8 @@
     padding: 0.5rem 0.25rem;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    background: var(--desktop-blue);
-    color: #fff;
+    background: var(--desktop-title);
+    color: var(--desktop-title-ink);
     font-size: 1.125rem;
     font-weight: 700;
     white-space: nowrap;
@@ -956,8 +1019,8 @@
   }
 
   .desktop-start-panel a:is(:hover, :focus-visible) {
-    background: var(--desktop-blue);
-    color: #fff;
+    background: var(--desktop-title);
+    color: var(--desktop-title-ink);
   }
 
   .desktop-start-divider {

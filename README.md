@@ -27,6 +27,11 @@ file lists that jump to individual roles and projects. Drag a title bar or use *
 arrow keys to position a window. Use the taskbar to switch windows or restore a
 minimized one. **Read as a page** opens the full portfolio.
 
+Choose Classic, Dark, or System under **Start → Display Settings**. The desktop
+and Threads document use this preference. The standard reading view keeps its own theme.
+The [Threads case study](http://localhost:8000/writeups/project-1.html) offers
+both views at the same route.
+
 ## Validation
 
 Run the launch-readiness checks with:
@@ -35,6 +40,8 @@ Run the launch-readiness checks with:
 python3 scripts/validate_site.py
 node --check script.js
 node --check desktop.js
+node --check desktop-theme.js
+node --check desktop-documents.js
 xmllint --noout sitemap.xml
 ```
 

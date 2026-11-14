@@ -20,8 +20,8 @@
     yearElement.textContent = new Date().getFullYear();
   }
 
-  // The desktop preview has its own navigation and does not use page scroll effects.
-  if (document.body.classList.contains('desktop-mode')) return;
+  // The Windows 95 views use their own theme and navigation.
+  if (document.body.matches('.desktop-mode, .desktop-document')) return;
 
   // ==========================================================================
   // Theme Toggle

@@ -14,18 +14,18 @@
   <meta property="og:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
   <meta property="og:url" content="https://ryanmathews.dev/">
   <meta property="og:site_name" content="Ryan Mathews">
-  <meta property="og:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
-  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image" content="https://ryanmathews.dev/assets/desktop-social.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Ryan Mathews - Senior iOS Engineer">
+  <meta property="og:image:alt" content="Ryan Mathews, Software Engineer, in a Windows 95-style Welcome window">
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ryan Mathews | Software Engineer">
   <meta name="twitter:description" content="Senior iOS engineer building high-scale consumer products, offline-first mobile apps, and real-time systems.">
-  <meta name="twitter:image" content="https://ryanmathews.dev/assets/ryan_dev_og.jpg">
-  <meta name="twitter:image:alt" content="Ryan Mathews - Senior iOS Engineer">
+  <meta name="twitter:image" content="https://ryanmathews.dev/assets/desktop-social.png">
+  <meta name="twitter:image:alt" content="Ryan Mathews, Software Engineer, in a Windows 95-style Welcome window">
 
   <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b0e12" media="(prefers-color-scheme: dark)">
@@ -36,8 +36,9 @@
   <link rel="preload" as="image" href="./assets/me-640.avif" type="image/avif">
 
   <!-- Stylesheet -->
+  <script src="./desktop-theme.js?v=1"></script>
   <link rel="stylesheet" href="./styles.css?v=5.1.0">
-  <link rel="stylesheet" href="./desktop.css?v=3">
+  <link rel="stylesheet" href="./desktop.css?v=4">
 
   <script type="application/ld+json">
   {
@@ -160,6 +161,28 @@
         <div class="desktop-status">
           <span>Founding Engineer at Idle</span>
           <span>New York, NY</span>
+        </div>
+      </section>
+
+      <section class="desktop-window desktop-display" id="display" aria-labelledby="desktop-display-heading"
+        data-desktop-window="display" data-window-label="Display Settings" data-window-icon="icon-window" hidden>
+        <div class="desktop-window-body">
+          <h2 id="desktop-display-heading" tabindex="-1">Display Settings</h2>
+          <fieldset class="desktop-theme-options">
+            <legend>Color scheme</legend>
+            <label>
+              <input type="radio" name="desktop-theme" value="classic" checked>
+              <span>Classic</span>
+            </label>
+            <label>
+              <input type="radio" name="desktop-theme" value="dark">
+              <span>Dark</span>
+            </label>
+            <label>
+              <input type="radio" name="desktop-theme" value="system">
+              <span>System</span>
+            </label>
+          </fieldset>
         </div>
       </section>
     </div>
@@ -320,7 +343,7 @@
           <ul>
             <li><a href="#cobile"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Cobile</span></a></li>
             <li><a href="#quant-platform"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Quantitative Research Platform</span></a></li>
-            <li><a href="./writeups/project-1.html"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Threads case study</span></a></li>
+            <li><a href="./writeups/project-1.html" data-desktop-document-link><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Threads case study</span></a></li>
           </ul>
         </nav>
 
@@ -428,7 +451,7 @@
                 <li>Shipped onboarding improvements responsible for 320K more users onboarded per day and 50K new daily active users.</li>
                 <li>Delivered Instagram gains of 2.12% in daily active users, 1.74% in impressions, and 0.25% in revenue.</li>
               </ul>
-              <a class="career-link" href="./writeups/project-1.html">Read the Threads case study →</a>
+              <a class="career-link" href="./writeups/project-1.html" data-desktop-document-link>Read the Threads case study →</a>
             </div>
           </article>
 
@@ -601,6 +624,7 @@
           <li><a href="#skills" data-open-window="skills"><span class="desktop-icon icon-window" aria-hidden="true"></span> My Computer</a></li>
           <li><a href="./resume.pdf"><span class="desktop-icon icon-document" aria-hidden="true"></span> Résumé</a></li>
           <li><a href="#contact" data-open-window="contact"><span class="desktop-icon icon-document" aria-hidden="true"></span> Contact</a></li>
+          <li class="desktop-start-divider"><a href="#display" data-open-window="display"><span class="desktop-icon icon-window" aria-hidden="true"></span> Display Settings</a></li>
           <li class="desktop-start-divider"><a href="?">Read as a page</a></li>
         </ul>
       </nav>
@@ -619,9 +643,9 @@
   </footer>
 
   <!-- Motion runtime and site behavior -->
-  <script src="./desktop.js?v=3"></script>
+  <script src="./desktop.js?v=4"></script>
   <script defer src="./assets/vendor/gsap/gsap.min.js?v=3.15.0"></script>
   <script defer src="./assets/vendor/gsap/ScrollTrigger.min.js?v=3.15.0"></script>
-  <script defer src="./script.js?v=5.0.1"></script>
+  <script defer src="./script.js?v=5.0.2"></script>
 </body>
 </html>

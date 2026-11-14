@@ -281,6 +281,11 @@
     section.hidden = false;
   });
   main.querySelectorAll('.desktop-content-index').forEach(index => { index.hidden = false; });
+  main.querySelectorAll('[data-desktop-document-link]').forEach(link => {
+    const url = new URL(link.href);
+    url.searchParams.set('view', 'desktop');
+    link.href = url;
+  });
   workspace.hidden = false;
   taskbar.hidden = false;
   document.body.classList.add('desktop-mode');

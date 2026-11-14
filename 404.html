@@ -7,135 +7,34 @@
   <title>Page Not Found | Ryan Mathews</title>
   <meta name="description" content="The page you're looking for doesn't exist.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0b0e12" media="(prefers-color-scheme: dark)">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <link rel="preload" as="font" href="./assets/fonts/Geist-Variable.woff2" type="font/woff2" crossorigin>
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="./styles.css?v=5.0.0">
-
-  <!-- Additional styles for 404 page -->
-  <style>
-    .error-page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .error-content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: var(--space-8);
-    }
-
-    .error-inner {
-      max-width: 28rem;
-    }
-
-    .error-code {
-      font-size: clamp(5rem, 15vw, 8rem);
-      font-weight: var(--font-bold);
-      color: var(--color-primary);
-      line-height: var(--leading-none);
-      margin-bottom: var(--space-4);
-      letter-spacing: -0.03em;
-    }
-
-    .error-title {
-      font-size: var(--text-2xl);
-      margin-bottom: var(--space-4);
-    }
-
-    .error-message {
-      color: var(--color-text-muted);
-      font-size: var(--text-base);
-      line-height: var(--leading-relaxed);
-      margin-bottom: var(--space-8);
-    }
-
-    .error-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: var(--space-3);
-    }
-  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <script src="/desktop-theme.js?v=1"></script>
+  <link rel="stylesheet" href="/styles.css?v=5.0.0">
+  <link rel="stylesheet" href="/desktop.css?v=4">
+  <link rel="stylesheet" href="/desktop-documents.css?v=1">
 </head>
-<body class="error-page">
-  <!-- Skip link -->
+<body class="desktop-document error-page">
   <a href="#main" class="skip-link">Skip to main content</a>
 
-  <!-- Simple header -->
-  <header class="site-header">
-    <nav class="nav-container" aria-label="Main navigation">
-      <a class="nav-brand" href="./index.html" aria-label="Ryan Mathews, back to homepage">RM</a>
-      <div class="nav-actions">
-        <ul class="nav-list">
-          <li><a href="./index.html">Home</a></li>
-          <li><a href="./index.html#projects">Projects</a></li>
-          <li><a href="./index.html#contact">Contact</a></li>
-        </ul>
-        <button
-        id="theme-toggle"
-        class="theme-toggle"
-        aria-label="Toggle dark mode"
-        title="Toggle dark mode"
-      >
-        <svg class="theme-icon-light" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="theme-icon-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        </button>
+  <main id="main" class="error-content" tabindex="-1">
+    <section class="desktop-window desktop-error-window" aria-labelledby="error-title">
+      <header class="desktop-titlebar">
+        <span><span class="desktop-icon icon-window" aria-hidden="true"></span>Error 404</span>
+      </header>
+      <div class="desktop-error-body">
+        <span class="desktop-error-icon" aria-hidden="true">!</span>
+        <div>
+          <h1 id="error-title">Page not found</h1>
+          <p>The address may have changed, or the page may have been removed.</p>
+        </div>
       </div>
-    </nav>
-  </header>
-
-  <main id="main" class="error-content">
-    <div class="error-inner">
-      <p class="error-code">404</p>
-      <h1 class="error-title">Page not found</h1>
-      <p class="error-message">
-        The page you're looking for doesn't exist or has been moved.
-        Let's get you back on track.
-      </p>
-      <div class="error-links">
-        <a href="./index.html" class="btn btn-primary">
-          Go to Homepage
-        </a>
-        <a href="./index.html#projects" class="btn btn-secondary">
-          View Projects
-        </a>
-        <a href="./index.html#contact" class="btn btn-secondary">
-          Contact Me
-        </a>
-      </div>
-    </div>
+      <nav class="desktop-error-actions" aria-label="Recovery options">
+        <a href="/?view=desktop#projects" class="desktop-button">Desktop Projects</a>
+        <a href="/" class="desktop-button">Home</a>
+        <a href="/#contact" class="desktop-button">Contact</a>
+      </nav>
+    </section>
   </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; <span id="current-year">2024</span> Ryan Mathews</p>
-    </div>
-  </footer>
-
-  <!-- Script -->
-  <script src="./script.js?v=5.0.0"></script>
 </body>
 </html>
