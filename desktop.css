@@ -32,9 +32,8 @@
   .desktop-mode > .site-header,
   .desktop-mode > .site-footer,
   .desktop-mode #main > .hero,
-  .desktop-mode #main > .section:not(#about),
-  .desktop-mode #about:not([data-window-state="open"]),
-  .desktop-mode .desktop-welcome:not([data-window-state="open"]) {
+  .desktop-mode #main > .section:not([data-desktop-window]),
+  .desktop-mode section[data-desktop-window]:not([data-window-state="open"]) {
     display: none;
   }
 
@@ -108,7 +107,7 @@
   .icon-cabinet { --icon-index: 4; }
 
   .desktop-window,
-  .desktop-mode #about {
+  .desktop-mode section.section[data-desktop-window] {
     padding: 3px;
     background: var(--desktop-surface);
     color: var(--desktop-ink);
@@ -135,16 +134,13 @@
     .desktop-mode [data-window-state="open"]:not([hidden]) {
       --window-width: min(47rem, calc(100% - 14rem));
       --window-top: clamp(0.5rem, 8dvh, 5rem);
+      --window-left: calc((100% + 7.5rem - var(--window-width)) / 2 + var(--window-offset, 0px));
       position: absolute;
       inset: var(--window-y, calc(var(--window-top) + var(--window-offset, 0px))) auto auto
-        var(--window-x, calc((100% + 7.5rem - var(--window-width)) / 2 + var(--window-offset, 0px)));
+        var(--window-x, min(var(--window-left), calc(100% - var(--window-width) - 0.375rem)));
       z-index: var(--window-z, 1);
       width: var(--window-width);
-      max-height: calc(100% - var(--window-top) - 2rem);
-    }
-
-    .desktop-mode #about {
-      --window-offset: 1.5rem;
+      max-height: calc(100% - var(--window-top) - max(2rem, calc(var(--window-offset, 0px) + 0.375rem)));
     }
 
     .desktop-mode [data-window-state="open"][data-maximized] {
@@ -199,7 +195,8 @@
   }
 
   .desktop-titlebar .desktop-icon,
-  .desktop-task .desktop-icon {
+  .desktop-task .desktop-icon,
+  .desktop-content-index .desktop-icon {
     width: 1rem;
     height: 1rem;
     background-size: 5rem 1rem;
@@ -300,7 +297,7 @@
   }
 
   .desktop-window-body,
-  .desktop-mode #about > .container {
+  .desktop-mode .section[data-desktop-window] > .container {
     min-height: 0;
     width: auto;
     max-width: none;
@@ -311,7 +308,7 @@
   }
 
   [data-maximized] .desktop-window-body,
-  .desktop-mode #about[data-maximized] > .container {
+  .desktop-mode .section[data-maximized] > .container {
     flex: 1;
   }
 
@@ -331,7 +328,8 @@
     box-shadow: var(--desktop-sunken);
   }
 
-  .desktop-mode #about > .container:focus-visible {
+  .desktop-mode .section[data-desktop-window] > .container:focus-visible {
+    outline-color: var(--desktop-blue);
     outline-offset: -4px;
   }
 
@@ -417,55 +415,449 @@
     box-shadow: inset 1px 1px var(--desktop-shadow), inset -1px -1px var(--desktop-light);
   }
 
-  .desktop-mode #about > .container {
+  .desktop-mode .section[data-desktop-window] > .container {
     margin: 3px 1px 1px;
     background: var(--desktop-paper);
     box-shadow: var(--desktop-sunken);
   }
 
-  .desktop-mode #about .about-heading {
+  /* Keep the window document styles separate from the reading view. */
+  .desktop-mode .section[data-desktop-window] > .container :is(
+    .impact-header, .work-heading, .projects-heading, .experience-heading,
+    .about-heading, .education-heading, .skills-heading
+  ) {
+    max-width: 64ch;
     margin-bottom: 1rem;
   }
 
-  .desktop-mode #about h2 {
-    max-width: 26ch;
-    margin: 0;
+  .desktop-mode .section[data-desktop-window] > .container h2 {
+    max-width: 32ch;
+    margin: 0 0 0.5rem;
     color: var(--desktop-ink);
     font: 700 clamp(1.5rem, 3vw, 2rem) / 1.15 var(--desktop-ui);
     letter-spacing: -0.025em;
   }
 
-  .desktop-mode #about .about-editorial {
-    display: block;
-    max-width: 58rem;
+  .desktop-mode .section[data-desktop-window] > .container h3 {
+    max-width: none;
+    margin: 0 0 0.5rem;
+    color: var(--desktop-ink);
+    font: 700 1.1875rem / 1.3 var(--desktop-ui);
+    letter-spacing: -0.01em;
   }
 
-  .desktop-mode #about .about-copy p {
-    max-width: 62ch;
+  .desktop-mode .section[data-desktop-window] > .container :is(p, dd, li) {
     color: var(--desktop-ink);
     font: 400 1rem / 1.55 var(--desktop-ui);
   }
 
-  .desktop-mode #about .capability-ledger {
-    margin-top: 1.25rem;
-    padding-top: 0.875rem;
+  .desktop-mode .section[data-desktop-window] > .container :is(h2, h3, article):focus-visible {
+    outline: 2px dotted var(--desktop-blue);
+    outline-offset: -2px;
+  }
+
+  .desktop-mode .section[data-desktop-window] > .container a {
+    color: var(--desktop-blue);
+    text-decoration: underline;
+    transition: none;
+  }
+
+  .desktop-mode .section[data-desktop-window] > .container a:focus-visible {
+    outline: 2px dotted currentColor;
+    outline-offset: -3px;
+  }
+
+  .desktop-mode .section[data-desktop-window] :is(.about-copy, .work-heading, .projects-heading, .contact-copy) p {
+    max-width: 62ch;
+  }
+
+  .desktop-mode #highlights .impact-layout {
+    display: block;
+  }
+
+  .desktop-mode #highlights .impact-source,
+  .desktop-mode #projects .project-type,
+  .desktop-mode #experience .career-company {
+    margin: 0 0 0.375rem;
+    color: var(--desktop-blue);
+    font: 700 0.875rem / 1.4 var(--desktop-ui);
+  }
+
+  .desktop-mode #highlights .impact-grid {
+    max-width: 36rem;
+    padding-inline: 0.875rem;
+    border: 0;
+    background: var(--desktop-face);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #highlights .impact-card {
+    display: grid;
+    grid-template-columns: minmax(5rem, 0.32fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+    min-height: 0;
+    padding-block: 0.75rem;
+    border: 0;
+  }
+
+  .desktop-mode #highlights .impact-card + .impact-card {
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-mode #highlights .impact-value {
+    grid-column: auto;
+    margin: 0;
+    color: var(--desktop-blue);
+    font: 700 clamp(1.125rem, 2vw, 1.5rem) / 1.2 var(--font-family-mono);
+    letter-spacing: -0.035em;
+  }
+
+  .desktop-mode #highlights .impact-label {
+    grid-column: auto;
+    margin: 0;
+  }
+
+  .desktop-mode #work .inline-project-mark {
+    width: 0.875em;
+    height: 0.875em;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .desktop-mode #work .inline-project-mark img {
+    filter: none;
+  }
+
+  .desktop-mode #work .current-work-story {
+    display: block;
+    max-width: 64ch;
+    padding: 0;
+    border: 0;
+  }
+
+  .desktop-mode #work .work-role {
+    gap: 0.25rem 1rem;
+    margin-bottom: 0.875rem;
+    padding: 0.625rem 0.75rem;
+    background: var(--desktop-face);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #work .work-role p {
+    font-size: 0.875rem;
+  }
+
+  .desktop-mode #work .work-role p:first-child {
+    color: var(--desktop-blue);
+    font-weight: 700;
+  }
+
+  .desktop-mode #work :is(.current-work-details, .current-work-stack) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.875rem 0 0;
+    border: 0;
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-mode #work .work-capability + .work-capability {
+    padding: 0;
+    border: 0;
+  }
+
+  .desktop-mode #work .work-capability h4 {
+    margin: 0 0 0.25rem;
+  }
+
+  .desktop-mode #work .stack-marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .desktop-mode #work .stack-marquee-track {
+    display: block;
+    width: auto;
+    animation: none;
+  }
+
+  .desktop-mode #work .stack-marquee-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 0.875rem;
+    padding: 0;
+  }
+
+  .desktop-mode #work .stack-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .desktop-mode #work .stack-marquee-group li {
+    min-width: 0;
+    color: var(--desktop-blue);
+    font: 500 0.8125rem / 1.5 var(--font-family-mono);
+  }
+
+  .desktop-content-index:not([hidden]) {
+    max-width: 34rem;
+    margin-bottom: 1.25rem;
+    padding: 2px;
+    background: var(--desktop-face);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-content-index ul {
+    list-style: none;
+  }
+
+  .desktop-mode .section[data-desktop-window] .desktop-content-index a {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    padding: 0.375rem 0.75rem;
+    text-decoration: none;
+  }
+
+  .desktop-mode .section[data-desktop-window] .desktop-content-index a:is(:hover, :focus-visible) {
+    background: var(--desktop-blue);
+    color: var(--desktop-light);
+  }
+
+  .desktop-mode #projects .project-showcase {
+    display: block;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    transition: none;
+  }
+
+  .desktop-mode #projects .project-panel {
+    display: grid;
+    grid-template-columns: clamp(6rem, 13vw, 9rem) minmax(0, 1fr);
+    gap: 0.875rem 1rem;
+    align-items: start;
+    padding-block: 1rem;
+    border-top: 1px solid var(--desktop-shadow);
+    background: transparent;
+    scroll-margin-top: 0.75rem;
+  }
+
+  .desktop-mode #projects .project-visual {
+    min-height: 0;
+    padding: 0.75rem;
+    background: var(--desktop-face);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #projects .project-image-motion {
+    min-height: 0;
+  }
+
+  .desktop-mode #projects .project-visual img {
+    max-width: 100%;
+    max-height: 6rem;
+    filter: brightness(0.35) contrast(1.2);
+    transform: none;
+    transition: none;
+  }
+
+  .desktop-mode #projects .project-copy {
+    display: block;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .desktop-mode #projects .project-notes {
+    gap: 0.5rem;
+    margin-top: 0.875rem;
+  }
+
+  .desktop-mode #projects .project-notes div {
+    display: block;
+    padding: 0.5rem 0 0;
     border-color: var(--desktop-shadow);
   }
 
-  .desktop-mode #about .capability-ledger h3 {
-    margin-bottom: 0.75rem;
+  .desktop-mode #projects .project-notes dt {
+    margin-bottom: 0.125rem;
     color: var(--desktop-ink);
-    font: 700 1rem / 1.4 var(--desktop-ui);
   }
 
-  .desktop-mode #about .capability-ledger dl {
-    gap: 0.75rem 1.25rem;
+  .desktop-mode #projects .project-notes dd {
+    font-size: 0.9375rem;
   }
 
-  .desktop-mode #about .capability-ledger dt,
-  .desktop-mode #about .capability-ledger dd {
+  .desktop-mode #projects .project-stack {
+    margin: 0.875rem 0 0;
+    padding: 0;
+    color: var(--desktop-blue);
+    font: 500 0.8125rem / 1.5 var(--font-family-mono);
+  }
+
+  .desktop-mode #experience .career-ledger {
+    max-width: 68ch;
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-mode #experience .career-entry {
+    display: block;
+    padding: 0.875rem 0;
+    border-color: var(--desktop-shadow);
+    scroll-margin-top: 0.75rem;
+  }
+
+  .desktop-mode #experience .career-entry-header {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.375rem 0.75rem;
+    align-items: start;
+    margin-bottom: 0.75rem;
+  }
+
+  .desktop-mode #experience .career-logo {
+    width: clamp(4.25rem, 13vw, 7.5rem);
+    height: 2.5rem;
+    margin: 0;
+    padding: 0.25rem;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .desktop-mode #experience .career-meta {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 1rem;
+    padding-top: 0.375rem;
+    border: 0;
+  }
+
+  .desktop-mode #experience .career-meta div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+  }
+
+  .desktop-mode #experience .career-meta dt {
+    color: var(--desktop-muted);
+    font: 700 0.875rem / 1.4 var(--desktop-ui);
+  }
+
+  .desktop-mode #experience .career-meta dd {
+    font-size: 0.875rem;
+  }
+
+  .desktop-mode #experience :is(.career-summary, .career-outcomes) {
+    margin-bottom: 0.625rem;
+  }
+
+  .desktop-mode #experience .career-outcomes {
+    gap: 0.375rem;
+    padding-left: 1.125rem;
+    list-style: disc;
+  }
+
+  .desktop-mode #experience .career-outcomes li {
+    padding: 0;
+    font-size: 0.9375rem;
+  }
+
+  .desktop-mode #experience .career-outcomes li::before {
+    content: none;
+  }
+
+  .desktop-mode #education .education-record,
+  .desktop-mode #skills .capability-ledger {
+    max-width: 39rem;
+    padding: 1rem;
+    border: 0;
+    background: var(--desktop-face);
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #education .education-details,
+  .desktop-mode #skills .capability-ledger dl {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .desktop-mode :is(#education .education-details, #skills .capability-ledger dl) > div {
+    display: grid;
+    grid-template-columns: minmax(7.25rem, 0.42fr) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .desktop-mode :is(#education .education-details, #skills .capability-ledger dl) > div + div {
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-mode :is(#education .education-details, #skills .capability-ledger) dt {
+    margin: 0;
+    color: var(--desktop-ink);
+    font: 700 0.875rem / 1.4 var(--desktop-ui);
+  }
+
+  .desktop-mode :is(#education .education-details, #skills .capability-ledger) dd {
+    max-width: none;
+    font-size: 0.9375rem;
+  }
+
+  .desktop-mode #contact .contact-editorial {
+    display: block;
+    max-width: 36rem;
+  }
+
+  .desktop-mode #contact .contact-copy p {
+    margin-bottom: 0.75rem;
+  }
+
+  .desktop-mode #contact .contact-copy .btn {
+    min-height: 2.75rem;
+    padding: 0.35rem 0.875rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--desktop-surface);
+    color: var(--desktop-ink);
+    box-shadow: var(--desktop-raised);
+    font: 700 0.875rem / 1.2 var(--desktop-ui);
+    text-decoration: none;
+    transform: none;
+  }
+
+  .desktop-mode #contact .contact-copy .btn:hover {
+    background: var(--desktop-face);
+  }
+
+  .desktop-mode #contact .contact-copy .btn:active {
+    box-shadow: var(--desktop-sunken);
+  }
+
+  .desktop-mode #contact .contact-directory {
+    margin: 1.25rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--desktop-shadow);
+  }
+
+  .desktop-mode #contact .contact-directory li {
+    border-color: var(--desktop-shadow);
+  }
+
+  .desktop-mode #contact .contact-directory a {
+    min-height: 2.75rem;
+    gap: 0.5rem;
+  }
+
+  .desktop-mode #contact .contact-directory a span:last-child {
     color: var(--desktop-ink);
     font-size: 0.875rem;
+    transform: none;
+    transition: none;
   }
 
   .desktop-taskbar:not([hidden]) {
@@ -497,26 +889,22 @@
     font: 700 0.625rem / 1 var(--desktop-ui);
   }
 
-  .desktop-task[hidden] {
-    display: none;
-  }
-
   .desktop-tasks {
     display: flex;
-    flex: 1 1 auto;
-    flex-wrap: wrap;
+    flex: 1 1 0;
+    align-items: flex-start;
     gap: 0.375rem;
     min-width: 0;
-  }
-
-  .desktop-tasks:not(:has(.desktop-task:not([hidden]))) {
-    display: none;
+    height: calc(2.375rem + 10px);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--desktop-shadow) var(--desktop-face);
   }
 
   .desktop-task {
-    flex: 0 1 11rem;
+    flex: 0 0 auto;
     justify-content: flex-start;
-    min-width: 0;
+    max-width: 100%;
   }
 
   .desktop-task span:last-child {
@@ -603,7 +991,7 @@
     }
 
     .desktop-window-body,
-    .desktop-mode #about > .container {
+    .desktop-mode .section[data-desktop-window] > .container {
       flex: 1;
     }
 
@@ -637,15 +1025,12 @@
 
     .desktop-tasks {
       order: 1;
-      flex: 0 1 100%;
-    }
-
-    .desktop-task {
-      flex: 1 1 0;
+      flex: 0 0 100%;
+      height: calc(2.75rem + 10px);
     }
 
     .desktop-start-panel:not([hidden]) {
-      max-height: calc(100dvh - 8rem - env(safe-area-inset-bottom));
+      max-height: calc(100dvh - 8.5rem - env(safe-area-inset-bottom));
     }
   }
 
@@ -658,12 +1043,21 @@
     .desktop-actions .desktop-button {
       padding-inline: 0.75rem;
     }
+
+    .desktop-mode #projects .project-panel,
+    .desktop-mode :is(#education .education-details, #skills .capability-ledger dl) > div {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .desktop-mode #projects .project-visual {
+      max-width: 9rem;
+    }
   }
 
   @media (forced-colors: active) {
     .desktop-button,
     .desktop-window,
-    .desktop-mode #about {
+    .desktop-mode section.section[data-desktop-window] {
       border: 1px solid ButtonText;
     }
 
@@ -697,6 +1091,7 @@
   .desktop-workspace,
   .desktop-titlebar,
   .desktop-taskbar,
+  .desktop-content-index,
   .desktop-preview-link {
     display: none !important;
   }

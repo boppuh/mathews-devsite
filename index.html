@@ -36,8 +36,8 @@
   <link rel="preload" as="image" href="./assets/me-640.avif" type="image/avif">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="./styles.css?v=5.0.0">
-  <link rel="stylesheet" href="./desktop.css?v=2">
+  <link rel="stylesheet" href="./styles.css?v=5.1.0">
+  <link rel="stylesheet" href="./desktop.css?v=3">
 
   <script type="application/ld+json">
   {
@@ -106,34 +106,31 @@
         <a href="#about" data-open-window="about">
           <span class="desktop-icon icon-document" aria-hidden="true"></span><span>About Me</span>
         </a>
-        <a href="?#highlights">
+        <a href="#highlights" data-open-window="highlights">
           <span class="desktop-icon icon-award" aria-hidden="true"></span><span>Key Highlights</span>
         </a>
-        <a href="?#experience">
+        <a href="#experience" data-open-window="experience">
           <span class="desktop-icon icon-cabinet" aria-hidden="true"></span><span>Work Experience</span>
         </a>
-        <a href="?#projects">
+        <a href="#projects" data-open-window="projects">
           <span class="desktop-icon icon-folder" aria-hidden="true"></span><span>Projects</span>
+        </a>
+        <a href="#education" data-open-window="education">
+          <span class="desktop-icon icon-document" aria-hidden="true"></span><span>Education</span>
+        </a>
+        <a href="#skills" data-open-window="skills">
+          <span class="desktop-icon icon-window" aria-hidden="true"></span><span>My Computer</span>
         </a>
         <a href="./resume.pdf">
           <span class="desktop-icon icon-document" aria-hidden="true"></span><span>Résumé.pdf</span>
         </a>
+        <a href="#contact" data-open-window="contact">
+          <span class="desktop-icon icon-document" aria-hidden="true"></span><span>Contact</span>
+        </a>
       </nav>
 
-      <section class="desktop-window desktop-welcome" id="desktop-welcome" aria-labelledby="desktop-welcome-heading" data-desktop-window="welcome" hidden>
-        <header class="desktop-titlebar" tabindex="-1">
-          <span><span class="desktop-icon icon-window" aria-hidden="true"></span> Welcome</span>
-          <div class="desktop-title-controls">
-            <button class="desktop-button desktop-move" type="button" data-window-action="move" aria-label="Move Welcome" aria-pressed="false" aria-describedby="desktop-move-help" title="Move Welcome">Move</button>
-            <button class="desktop-button desktop-minimize" type="button" data-window-action="minimize" aria-label="Minimize Welcome" title="Minimize Welcome"></button>
-            <button class="desktop-button desktop-maximize" type="button" data-window-action="maximize" aria-label="Maximize Welcome" title="Maximize Welcome"></button>
-            <button class="desktop-button desktop-close" type="button" data-window-action="close" aria-label="Close Welcome">
-              <span class="desktop-close-symbol" aria-hidden="true">×</span>
-              <span class="desktop-back-label" aria-hidden="true">Back</span>
-            </button>
-          </div>
-        </header>
-        <p class="desktop-move-hint" aria-hidden="true">Arrow keys to move. Enter to finish. Escape to cancel.</p>
+      <section class="desktop-window desktop-welcome" id="desktop-welcome" aria-labelledby="desktop-welcome-heading"
+        data-desktop-window="welcome" data-window-label="Welcome" data-window-icon="icon-window" hidden>
         <div class="desktop-window-body">
           <div class="desktop-intro">
             <picture>
@@ -155,9 +152,9 @@
             </dl>
           </section>
           <nav class="desktop-actions" aria-label="Welcome links">
-            <a class="desktop-button desktop-primary" href="?#projects">Projects</a>
+            <a class="desktop-button desktop-primary" href="#projects" data-open-window="projects">Projects</a>
             <a class="desktop-button" href="./resume.pdf">Résumé</a>
-            <a class="desktop-button" href="?#contact">Contact</a>
+            <a class="desktop-button" href="#contact" data-open-window="contact">Contact</a>
           </nav>
         </div>
         <div class="desktop-status">
@@ -166,6 +163,25 @@
         </div>
       </section>
     </div>
+
+    <template id="desktop-window-chrome">
+      <header class="desktop-titlebar" tabindex="-1">
+        <span>
+          <span class="desktop-icon desktop-window-icon" aria-hidden="true"></span>
+          <span class="desktop-window-title"></span>
+        </span>
+        <div class="desktop-title-controls">
+          <button class="desktop-button desktop-move" type="button" data-window-action="move" aria-label="Move window" aria-pressed="false" aria-describedby="desktop-move-help">Move</button>
+          <button class="desktop-button desktop-minimize" type="button" data-window-action="minimize" aria-label="Minimize window"></button>
+          <button class="desktop-button desktop-maximize" type="button" data-window-action="maximize" aria-label="Maximize window"></button>
+          <button class="desktop-button desktop-close" type="button" data-window-action="close" aria-label="Close window">
+            <span class="desktop-close-symbol" aria-hidden="true">×</span>
+            <span class="desktop-back-label" aria-hidden="true">Back</span>
+          </button>
+        </div>
+      </header>
+      <p class="desktop-move-hint" aria-hidden="true">Arrow keys to move. Enter to finish. Escape to cancel.</p>
+    </template>
 
     <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-heading">
@@ -199,12 +215,13 @@
     </section>
 
     <!-- Product Impact Section -->
-    <section class="section" id="highlights" aria-labelledby="impact-heading">
+    <section class="section" id="highlights" aria-labelledby="impact-heading"
+      data-desktop-window="highlights" data-window-label="Key Highlights" data-window-icon="icon-award">
       <div class="container">
         <div class="impact-layout">
           <header class="impact-header">
             <p class="impact-source">Selected product impact at Meta</p>
-            <h2 id="impact-heading">Shipping products that move real metrics.</h2>
+            <h2 id="impact-heading" tabindex="-1">Shipping products that move real metrics.</h2>
             <p>Growth, engagement, and revenue improvements delivered across Instagram and Threads.</p>
           </header>
           <div class="impact-grid">
@@ -230,10 +247,11 @@
     </section>
 
     <!-- Featured Work Section -->
-    <section id="work" class="section section-alt work-section" aria-labelledby="work-heading">
+    <section id="work" class="section section-alt work-section" aria-labelledby="work-heading"
+      data-desktop-window="work" data-window-label="Current Role" data-window-icon="icon-cabinet">
       <div class="container">
         <header class="work-heading">
-          <h2 id="work-heading">
+          <h2 id="work-heading" tabindex="-1">
             Building
             <span class="inline-project-mark" aria-hidden="true">
               <img src="./assets/output_icon.jpg" alt="" width="400" height="400" loading="lazy" decoding="async">
@@ -290,15 +308,24 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section projects-section" aria-labelledby="projects-heading">
+    <section id="projects" class="section projects-section" aria-labelledby="projects-heading"
+      data-desktop-window="projects" data-window-label="Projects" data-window-icon="icon-folder">
       <div class="container">
         <header class="projects-heading">
-          <h2 id="projects-heading">Systems built end to end.</h2>
+          <h2 id="projects-heading" tabindex="-1">Systems built end to end.</h2>
           <p>Independent work spanning mobile clients, secure backend infrastructure, quantitative research, and real-time execution.</p>
         </header>
 
+        <nav class="desktop-content-index" aria-label="Project files" hidden>
+          <ul>
+            <li><a href="#cobile"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Cobile</span></a></li>
+            <li><a href="#quant-platform"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Quantitative Research Platform</span></a></li>
+            <li><a href="./writeups/project-1.html"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Threads case study</span></a></li>
+          </ul>
+        </nav>
+
         <div class="project-showcase">
-          <article class="project-panel project-panel-cobile">
+          <article class="project-panel project-panel-cobile" id="cobile" tabindex="-1" aria-labelledby="cobile-heading">
             <figure class="project-visual project-visual-cobile">
               <div class="project-image-motion">
                 <img src="./assets/mathews_technologies_logo.png" alt="Mathews Technologies" width="1280" height="1201" loading="lazy" decoding="async">
@@ -306,7 +333,7 @@
             </figure>
             <div class="project-copy">
               <p class="project-type">Mobile agent platform</p>
-              <h3>Cobile</h3>
+              <h3 id="cobile-heading">Cobile</h3>
               <p class="card-summary">A secure iOS and backend system for running AI agents against GitHub repositories with visible progress and human approval.</p>
               <dl class="project-notes">
                 <div>
@@ -326,7 +353,7 @@
             </div>
           </article>
 
-          <article class="project-panel project-panel-quant">
+          <article class="project-panel project-panel-quant" id="quant-platform" tabindex="-1" aria-labelledby="quant-platform-heading">
             <figure class="project-visual project-visual-quant">
               <div class="project-image-motion">
                 <img src="./assets/mathews_capital_logo.png" alt="Mathews Capital" width="1280" height="670" loading="lazy" decoding="async">
@@ -334,7 +361,7 @@
             </figure>
             <div class="project-copy">
               <p class="project-type">Quantitative systems</p>
-              <h3>Quantitative Research Platform</h3>
+              <h3 id="quant-platform-heading">Quantitative Research Platform</h3>
               <p class="card-summary">A research-to-execution platform for testing market hypotheses rigorously and deploying validated strategies.</p>
               <dl class="project-notes">
                 <div>
@@ -358,19 +385,29 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="section section-alt experience-section" aria-labelledby="experience-heading">
+    <section id="experience" class="section section-alt experience-section" aria-labelledby="experience-heading"
+      data-desktop-window="experience" data-window-label="Work Experience" data-window-icon="icon-cabinet">
       <div class="container">
         <header class="experience-heading">
-          <h2 id="experience-heading">Experience across scale and constraints.</h2>
+          <h2 id="experience-heading" tabindex="-1">Experience across scale and constraints.</h2>
           <p>Each role expanded the products, systems, and engineering decisions I could own.</p>
         </header>
 
+        <nav class="desktop-content-index" aria-label="Experience files" hidden>
+          <ul>
+            <li><a href="#work" data-open-window="work"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Idle</span></a></li>
+            <li><a href="#meta-role"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Meta</span></a></li>
+            <li><a href="#audible-role"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Audible</span></a></li>
+            <li><a href="#globalstar-role"><span class="desktop-icon icon-document" aria-hidden="true"></span><span>Globalstar</span></a></li>
+          </ul>
+        </nav>
+
         <div class="career-ledger">
-          <article class="career-entry career-entry-featured">
+          <article class="career-entry career-entry-featured" id="meta-role" tabindex="-1" aria-labelledby="meta-company">
             <header class="career-entry-header">
               <img src="./assets/meta_logo.avif" alt="Meta" class="career-logo" width="1400" height="500" loading="lazy" decoding="async">
               <div>
-                <p class="career-company">Meta / Instagram and Threads</p>
+                <p class="career-company" id="meta-company">Meta / Instagram and Threads</p>
                 <h3>Software Engineer</h3>
               </div>
               <dl class="career-meta">
@@ -395,11 +432,11 @@
             </div>
           </article>
 
-          <article class="career-entry">
+          <article class="career-entry" id="audible-role" tabindex="-1" aria-labelledby="audible-company">
             <header class="career-entry-header">
               <img src="./assets/audible_logo.png" alt="Audible" class="career-logo" width="860" height="274" loading="lazy" decoding="async">
               <div>
-                <p class="career-company">Audible / Amazon</p>
+                <p class="career-company" id="audible-company">Audible / Amazon</p>
                 <h3>Software Development Engineer</h3>
               </div>
               <dl class="career-meta">
@@ -422,11 +459,11 @@
             </div>
           </article>
 
-          <article class="career-entry">
+          <article class="career-entry" id="globalstar-role" tabindex="-1" aria-labelledby="globalstar-company">
             <header class="career-entry-header">
               <img src="./assets/globalstar_logo.jpg" alt="Globalstar" class="career-logo" width="800" height="205" loading="lazy" decoding="async">
               <div>
-                <p class="career-company">Globalstar</p>
+                <p class="career-company" id="globalstar-company">Globalstar</p>
                 <h3>Mobile App Developer</h3>
               </div>
               <dl class="career-meta">
@@ -452,63 +489,85 @@
       </div>
     </section>
 
-    <!-- About and Capabilities Section -->
-    <section id="about" class="section about-section" aria-labelledby="about-heading" data-desktop-window="about">
-      <header class="desktop-titlebar" tabindex="-1" hidden>
-        <span><span class="desktop-icon icon-document" aria-hidden="true"></span> About Me.txt</span>
-        <div class="desktop-title-controls">
-          <button class="desktop-button desktop-move" type="button" data-window-action="move" aria-label="Move About Me" aria-pressed="false" aria-describedby="desktop-move-help" title="Move About Me">Move</button>
-          <button class="desktop-button desktop-minimize" type="button" data-window-action="minimize" aria-label="Minimize About Me" title="Minimize About Me"></button>
-          <button class="desktop-button desktop-maximize" type="button" data-window-action="maximize" aria-label="Maximize About Me" title="Maximize About Me"></button>
-          <button class="desktop-button desktop-close" type="button" data-window-action="close" aria-label="Close About Me">
-            <span class="desktop-close-symbol" aria-hidden="true">×</span>
-            <span class="desktop-back-label" aria-hidden="true">Back</span>
-          </button>
-        </div>
-      </header>
-      <p class="desktop-move-hint" aria-hidden="true">Arrow keys to move. Enter to finish. Escape to cancel.</p>
+    <!-- About Section -->
+    <section id="about" class="section about-section" aria-labelledby="about-heading"
+      data-desktop-window="about" data-window-label="About Me" data-window-icon="icon-document">
       <div class="container">
         <header class="about-heading">
           <h2 id="about-heading" tabindex="-1">Product judgment, systems depth.</h2>
         </header>
-        <div class="about-editorial">
-          <div class="about-copy">
-            <p>I'm a senior iOS engineer with eight years of experience building consumer products from early-stage startups to global platforms.</p>
-            <p>I do my best work where product judgment and systems depth meet: offline-first architecture, real-time collaboration, mobile performance, and the details that make an app feel dependable.</p>
-            <p>I also build quantitative research and execution systems. Outside of engineering, I'm a New Orleans native with strong opinions about negronis, Lil Wayne mixtapes, and Louisiana sports.</p>
-          </div>
+        <div class="about-copy">
+          <p>I'm a senior iOS engineer with eight years of experience building consumer products from early-stage startups to global platforms.</p>
+          <p>I do my best work where product judgment and systems depth meet: offline-first architecture, real-time collaboration, mobile performance, and the details that make an app feel dependable.</p>
+          <p>I also build quantitative research and execution systems. Outside of engineering, I'm a New Orleans native with strong opinions about negronis, Lil Wayne mixtapes, and Louisiana sports.</p>
+        </div>
+      </div>
+    </section>
 
-          <aside class="capability-ledger" aria-labelledby="capability-heading">
-            <h3 id="capability-heading">Core capabilities</h3>
-            <dl>
-              <div>
-                <dt>Mobile products</dt>
-                <dd>Swift, SwiftUI, UIKit, Combine, GRDB, SQLite</dd>
-              </div>
-              <div>
-                <dt>Architecture</dt>
-                <dd>Offline-first systems, WebSockets, real-time sync</dd>
-              </div>
-              <div>
-                <dt>Backend and data</dt>
-                <dd>Python, C++, AWS, ClickHouse, Redis</dd>
-              </div>
-              <div>
-                <dt>Product engineering</dt>
-                <dd>A/B testing, performance, high-traffic applications</dd>
-              </div>
-            </dl>
-          </aside>
+    <!-- Education Section -->
+    <section id="education" class="section section-alt education-section" aria-labelledby="education-heading"
+      data-desktop-window="education" data-window-label="Education" data-window-icon="icon-document">
+      <div class="container">
+        <header class="education-heading">
+          <h2 id="education-heading" tabindex="-1">Education</h2>
+        </header>
+        <article class="education-record" aria-labelledby="education-degree">
+          <h3 id="education-degree">Bachelor of Science in Computer Engineering</h3>
+          <dl class="education-details">
+            <div>
+              <dt>University</dt>
+              <dd>Louisiana State University</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>Baton Rouge</dd>
+            </div>
+            <div>
+              <dt>Graduated</dt>
+              <dd><time datetime="2018-01">January 2018</time></dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section id="skills" class="section skills-section" aria-labelledby="capability-heading"
+      data-desktop-window="skills" data-window-label="My Computer" data-window-icon="icon-window">
+      <div class="container">
+        <header class="skills-heading">
+          <h2 id="capability-heading" tabindex="-1">Core capabilities</h2>
+        </header>
+        <div class="capability-ledger">
+          <dl>
+            <div>
+              <dt>Mobile products</dt>
+              <dd>Swift, SwiftUI, UIKit, Combine, GRDB, SQLite</dd>
+            </div>
+            <div>
+              <dt>Architecture</dt>
+              <dd>Offline-first systems, WebSockets, real-time sync</dd>
+            </div>
+            <div>
+              <dt>Backend and data</dt>
+              <dd>Python, C++, AWS, ClickHouse, Redis</dd>
+            </div>
+            <div>
+              <dt>Product engineering</dt>
+              <dd>A/B testing, performance, high-traffic applications</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section section-alt contact-section" aria-labelledby="contact-heading">
+    <section id="contact" class="section section-alt contact-section" aria-labelledby="contact-heading"
+      data-desktop-window="contact" data-window-label="Contact" data-window-icon="icon-document">
       <div class="container">
         <div class="contact-editorial">
           <div class="contact-copy">
-            <h2 id="contact-heading">Build something that has to work.</h2>
+            <h2 id="contact-heading" tabindex="-1">Build something that has to work.</h2>
             <p>I'm interested in ambitious mobile products, high-scale systems, and difficult engineering problems.</p>
             <a href="mailto:ryan@ryanmathews.dev" class="btn btn-primary">Send an email</a>
           </div>
@@ -535,11 +594,13 @@
         <ul>
           <li><a href="#desktop-welcome" data-open-window="welcome"><span class="desktop-icon icon-window" aria-hidden="true"></span> Welcome</a></li>
           <li><a href="#about" data-open-window="about"><span class="desktop-icon icon-document" aria-hidden="true"></span> About Me</a></li>
-          <li><a href="?#highlights"><span class="desktop-icon icon-award" aria-hidden="true"></span> Key Highlights</a></li>
-          <li><a href="?#experience"><span class="desktop-icon icon-cabinet" aria-hidden="true"></span> Work Experience</a></li>
-          <li><a href="?#projects"><span class="desktop-icon icon-folder" aria-hidden="true"></span> Projects</a></li>
+          <li><a href="#highlights" data-open-window="highlights"><span class="desktop-icon icon-award" aria-hidden="true"></span> Key Highlights</a></li>
+          <li><a href="#experience" data-open-window="experience"><span class="desktop-icon icon-cabinet" aria-hidden="true"></span> Work Experience</a></li>
+          <li><a href="#projects" data-open-window="projects"><span class="desktop-icon icon-folder" aria-hidden="true"></span> Projects</a></li>
+          <li><a href="#education" data-open-window="education"><span class="desktop-icon icon-document" aria-hidden="true"></span> Education</a></li>
+          <li><a href="#skills" data-open-window="skills"><span class="desktop-icon icon-window" aria-hidden="true"></span> My Computer</a></li>
           <li><a href="./resume.pdf"><span class="desktop-icon icon-document" aria-hidden="true"></span> Résumé</a></li>
-          <li><a href="?#contact"><span class="desktop-icon icon-document" aria-hidden="true"></span> Contact</a></li>
+          <li><a href="#contact" data-open-window="contact"><span class="desktop-icon icon-document" aria-hidden="true"></span> Contact</a></li>
           <li class="desktop-start-divider"><a href="?">Read as a page</a></li>
         </ul>
       </nav>
@@ -558,7 +619,7 @@
   </footer>
 
   <!-- Motion runtime and site behavior -->
-  <script src="./desktop.js?v=2.0.1"></script>
+  <script src="./desktop.js?v=3"></script>
   <script defer src="./assets/vendor/gsap/gsap.min.js?v=3.15.0"></script>
   <script defer src="./assets/vendor/gsap/ScrollTrigger.min.js?v=3.15.0"></script>
   <script defer src="./script.js?v=5.0.1"></script>

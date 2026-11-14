@@ -1130,13 +1130,17 @@ strong {
    -------------------------------------------------------------------------- */
 
 .experience-heading,
-.about-heading {
+.about-heading,
+.education-heading,
+.skills-heading {
   max-width: 56rem;
   margin-bottom: clamp(var(--space-12), 8vw, var(--space-20));
 }
 
 .experience-heading h2,
 .about-heading h2,
+.education-heading h2,
+.skills-heading h2,
 .contact-copy h2 {
   max-width: 17ch;
   margin-bottom: var(--space-5);
@@ -1267,11 +1271,6 @@ strong {
   font-weight: var(--font-semibold);
 }
 
-.about-editorial {
-  display: grid;
-  gap: clamp(var(--space-12), 9vw, 8rem);
-}
-
 .about-copy {
   max-width: 45rem;
 }
@@ -1296,11 +1295,6 @@ strong {
   border-top: 2px solid var(--color-text);
 }
 
-.capability-ledger h3 {
-  margin-bottom: var(--space-8);
-  font-size: var(--text-xl);
-}
-
 .capability-ledger dl {
   display: grid;
   gap: var(--space-8) var(--space-10);
@@ -1318,6 +1312,33 @@ strong {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
+}
+
+.education-record {
+  max-width: 54rem;
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--color-text);
+}
+
+.education-record h3 {
+  margin-bottom: var(--space-5);
+}
+
+.education-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-10);
+}
+
+.education-details dt {
+  margin-bottom: var(--space-1);
+  color: var(--color-text-light);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+}
+
+.education-details dd {
+  color: var(--color-text-muted);
 }
 
 .contact-section {
@@ -1403,7 +1424,6 @@ strong {
     padding-bottom: clamp(var(--space-16), 9vw, 7rem);
   }
 
-  .about-editorial,
   .contact-editorial {
     grid-template-columns: minmax(0, 7fr) minmax(18rem, 5fr);
   }
@@ -2503,7 +2523,6 @@ h2 {
   }
 
   .career-entry,
-  .about-editorial,
   .contact-editorial {
     display: block;
     padding: 0.75rem 0;
@@ -2518,6 +2537,8 @@ h2 {
 
   .experience-heading h2,
   .about-heading h2,
+  .education-heading h2,
+  .skills-heading h2,
   .contact-copy h2 {
     max-width: none;
     font-size: 14pt;
