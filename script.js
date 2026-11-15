@@ -11,6 +11,8 @@
 (function () {
   'use strict';
 
+  const { gsapSrc, scrollTriggerSrc } = document.currentScript.dataset;
+
   // ==========================================================================
   // Auto-update Copyright Year
   // ==========================================================================
@@ -29,17 +31,14 @@
 
   const THEME_KEY = 'theme-preference';
   const themeToggle = document.getElementById('theme-toggle');
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  let themePreference;
 
-  /**
-   * Get the user's theme preference
-   * Priority: localStorage > system preference > light
-   */
-  function getThemePreference() {
-    const stored = localStorage.getItem(THEME_KEY);
-    if (stored) {
-      return stored;
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  try {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme === 'light' || savedTheme === 'dark') themePreference = savedTheme;
+  } catch {
+    // Storage can be unavailable in some browser sessions.
   }
 
   /**
@@ -48,7 +47,12 @@
   function setTheme(theme, persist = true) {
     document.documentElement.setAttribute('data-theme', theme);
     if (persist) {
-      localStorage.setItem(THEME_KEY, theme);
+      themePreference = theme;
+      try {
+        localStorage.setItem(THEME_KEY, theme);
+      } catch {
+        // Keep the choice for this page when it cannot be saved.
+      }
     }
 
     // Update toggle button aria-label
@@ -63,13 +67,13 @@
    * Toggle between light and dark themes
    */
   function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme') || getThemePreference();
+    const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
     setTheme(next);
   }
 
   // Initialize theme on page load
-  const initialTheme = getThemePreference();
+  const initialTheme = themePreference || (systemTheme.matches ? 'dark' : 'light');
   setTheme(initialTheme, false);
 
   // Add click handler to toggle button
@@ -78,12 +82,8 @@
   }
 
   // Listen for system theme changes (when no manual preference is set)
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    // Only auto-switch if user hasn't manually set a preference
-    const stored = localStorage.getItem(THEME_KEY);
-    if (!stored) {
-      setTheme(e.matches ? 'dark' : 'light', false);
-    }
+  systemTheme.addEventListener('change', (e) => {
+    if (!themePreference) setTheme(e.matches ? 'dark' : 'light', false);
   });
 
   // ==========================================================================
@@ -259,7 +259,8 @@
   // GSAP Motion Layer
   // ==========================================================================
 
-  if (!prefersReducedMotion && window.gsap && window.ScrollTrigger) {
+  function setupMotion() {
+    if (!window.gsap || !window.ScrollTrigger) return;
     const { gsap, ScrollTrigger } = window;
     gsap.registerPlugin(ScrollTrigger);
 
@@ -354,7 +355,25 @@
       return () => cleanups.forEach(cleanup => cleanup());
     });
 
-    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    if (document.readyState === 'complete') ScrollTrigger.refresh();
+    else window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.append(script);
+    });
+  }
+
+  if (!prefersReducedMotion && gsapSrc && scrollTriggerSrc) {
+    // Load the plugin after GSAP, and keep the reading view usable if either fails.
+    loadScript(gsapSrc)
+      .then(() => loadScript(scrollTriggerSrc))
+      .then(setupMotion, () => {});
   }
 
 })();

@@ -10,13 +10,16 @@ import xml.etree.ElementTree as ET
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent.parent
 HTML_FILES = (ROOT / "index.html", ROOT / "writeups/project-1.html", ROOT / "404.html")
 PRODUCTION_HTML = (ROOT / "index.html", ROOT / "writeups/project-1.html")
 PRODUCTION_ORIGIN = "https://ryanmathews.dev"
+STYLESHEETS = tuple(sorted(ROOT.glob("*.css")))
+SCRIPTS = tuple(sorted(ROOT.glob("*.js")))
+SCRIPT_SOURCE_ATTRIBUTES = ("data-gsap-src", "data-scroll-trigger-src")
 VOID_ELEMENTS = {
     "area", "base", "br", "col", "embed", "hr", "img", "input", "link",
     "meta", "param", "source", "track", "wbr",
@@ -41,7 +44,7 @@ class SiteHTMLParser(HTMLParser):
         values = dict(attrs)
         if element_id := values.get("id"):
             self.ids.append(element_id)
-        for attribute in ("href", "src"):
+        for attribute in ("href", "src", *SCRIPT_SOURCE_ATTRIBUTES):
             if value := values.get(attribute):
                 self.references.append((tag, attribute, value))
         if srcset := values.get("srcset"):
@@ -160,14 +163,39 @@ def validate_metadata(page: Path, parser: SiteHTMLParser) -> None:
 
 
 def validate_css() -> None:
-    css = (ROOT / "styles.css").read_text(encoding="utf-8")
-    without_comments = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
-    if without_comments.count("{") != without_comments.count("}"):
-        fail("styles.css: unbalanced braces")
-    definitions = set(re.findall(r"(--[a-z0-9-]+)\s*:", css))
-    references = set(re.findall(r"var\((--[a-z0-9-]+)", css))
-    if missing := sorted(references - definitions):
-        fail(f"styles.css: undefined custom properties: {missing}")
+    styles = {
+        path: re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
+        for path in STYLESHEETS
+    }
+    definitions = set(re.findall(r"(--[a-z0-9-]+)\s*:", "\n".join(styles.values())))
+    for path in SCRIPTS:
+        definitions.update(re.findall(r"setProperty\(['\"](--[a-z0-9-]+)", path.read_text(encoding="utf-8")))
+    for path, css in styles.items():
+        if css.count("{") != css.count("}"):
+            fail(f"{path.name}: unbalanced braces")
+        references = set(re.findall(r"var\((--[a-z0-9-]+)\s*\)", css))
+        if missing := sorted(references - definitions):
+            fail(f"{path.name}: undefined custom properties: {missing}")
+        for reference in re.findall(r"""url\(\s*['"]?([^'")]+)['"]?\s*\)""", css):
+            target = local_target(path, reference.strip())
+            if target is not None and not target.is_file():
+                fail(f"{path.name}: missing CSS asset: {reference}")
+
+
+def validate_asset_versions(parsed_pages: dict[Path, SiteHTMLParser]) -> None:
+    versions: dict[Path, set[str]] = {}
+    for page, parser in parsed_pages.items():
+        for _, _, reference in parser.references:
+            target = local_target(page, reference)
+            if target is None or target.suffix not in {".css", ".js"}:
+                continue
+            version = parse_qs(urlparse(reference).query).get("v", [""])[0]
+            if not version:
+                fail(f"{page.relative_to(ROOT)}: missing asset version: {reference}")
+            versions.setdefault(target, set()).add(version)
+    for target, values in versions.items():
+        if len(values) > 1:
+            fail(f"{target.relative_to(ROOT)}: inconsistent asset versions: {sorted(values)}")
 
 
 def validate_sitemap(production_pages: dict[Path, SiteHTMLParser]) -> None:
@@ -181,7 +209,7 @@ def validate_sitemap(production_pages: dict[Path, SiteHTMLParser]) -> None:
 
 
 def validate_no_placeholders() -> None:
-    checked = [*HTML_FILES, ROOT / "styles.css", ROOT / "script.js", ROOT / "robots.txt", ROOT / "sitemap.xml"]
+    checked = [*HTML_FILES, *STYLESHEETS, *SCRIPTS, ROOT / "robots.txt", ROOT / "sitemap.xml"]
     banned = re.compile(r"yourdomain\.com|example\.com|lorem ipsum|EDIT HERE", re.I)
     for path in checked:
         if match := banned.search(path.read_text(encoding="utf-8")):
@@ -196,6 +224,7 @@ def main() -> int:
     for path, parser in production_pages.items():
         validate_metadata(path, parser)
     validate_css()
+    validate_asset_versions(parsed_pages)
     validate_sitemap(production_pages)
     validate_no_placeholders()
     html_text = "\n".join(path.read_text(encoding="utf-8") for path in HTML_FILES)

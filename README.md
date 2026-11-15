@@ -8,7 +8,7 @@ The source for [ryanmathews.dev](https://ryanmathews.dev), a static portfolio fo
 - Responsive CSS with light and dark themes
 - Self-hosted Geist and Geist Mono variable fonts
 - Vanilla JavaScript for theme preferences, navigation state, and motion
-- Locally vendored GSAP and ScrollTrigger for progressive motion
+- Locally vendored GSAP and ScrollTrigger for reading-view motion when reduced motion is off
 - No framework or build step
 
 ## Local preview
@@ -45,7 +45,14 @@ node --check desktop-documents.js
 xmllint --noout sitemap.xml
 ```
 
-The validation script checks HTML structure, duplicate IDs, local references, image dimensions and alt text, canonical URLs, JSON-LD, CSS variables, and production-domain placeholders.
+The validator checks HTML structure, duplicate IDs, local references, image attributes,
+canonical metadata, JSON-LD, CSS variables and assets, and consistent cache versions.
+
+Before merging a redesign release, verify the deployment preview in Chrome and a
+WebKit browser. Check the desktop, reading view, and case study at desktop and
+phone widths. Test keyboard window controls, Start navigation, deep links and
+history, display preferences, print and JavaScript-disabled browsing, and recovery
+from a nested missing URL.
 
 ## Structure
 
@@ -66,4 +73,12 @@ The validation script checks HTML structure, duplicate IDs, local references, im
 
 The production site and pull-request previews are deployed through Netlify. Merging an approved pull request into `main` publishes the corresponding site update.
 
+The Windows 95 preview is available at `/?view=desktop`. Use the PR deployment URL
+to review it before publishing.
+
 When content changes, update the relevant `lastmod` entry in `sitemap.xml` and keep canonical, Open Graph, and structured-data URLs on `https://ryanmathews.dev`.
+
+## Credits
+
+- [Win9x icon attribution](/assets/win9x-icons-LICENSE.md)
+- [98.css license](/assets/98css-LICENSE.txt)
