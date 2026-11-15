@@ -143,7 +143,7 @@ html[data-desktop-theme="dark"] :is(.desktop-mode, .desktop-document) {
     min-height: 0;
   }
 
-  @media (min-width: 48rem) {
+  @media (width > 47.99rem) and (height > 20rem) {
     .desktop-mode #main:has([data-active][data-maximized]) .desktop-shortcuts {
       visibility: hidden;
     }
@@ -421,7 +421,7 @@ html[data-desktop-theme="dark"] :is(.desktop-mode, .desktop-document) {
     margin-top: 1.25rem;
   }
 
-  .desktop-primary {
+  .desktop-primary:not(:focus-visible) {
     outline: 1px solid var(--desktop-frame);
     outline-offset: -1px;
   }
@@ -1027,7 +1027,7 @@ html[data-desktop-theme="dark"] :is(.desktop-mode, .desktop-document) {
     border-top: 1px solid var(--desktop-shadow);
   }
 
-  @media (max-width: 47.99rem) {
+  @media (max-width: 47.99rem), (max-height: 20rem) {
     .desktop-mode #main {
       grid-template-columns: minmax(0, 1fr);
     }
@@ -1094,6 +1094,22 @@ html[data-desktop-theme="dark"] :is(.desktop-mode, .desktop-document) {
 
     .desktop-start-panel:not([hidden]) {
       max-height: calc(100dvh - 8.5rem - env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-height: 20rem) {
+    .desktop-mode #main {
+      height: auto;
+      min-height: 100dvh;
+      overflow: visible;
+    }
+
+    .desktop-start-panel:not([hidden]) {
+      position: static;
+      order: 2;
+      flex: 0 0 100%;
+      width: auto;
+      max-height: none;
     }
   }
 

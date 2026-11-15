@@ -10,7 +10,7 @@
   const start = document.getElementById('desktop-start');
   const startPanel = document.getElementById('desktop-start-panel');
   const tasks = document.getElementById('desktop-tasks');
-  const compact = matchMedia('(max-width: 47.99rem)');
+  const compact = matchMedia('(max-width: 47.99rem), (max-height: 20rem)');
   const chrome = document.getElementById('desktop-window-chrome');
   const windows = new Map();
 
@@ -281,6 +281,7 @@
     section.hidden = false;
   });
   main.querySelectorAll('.desktop-content-index').forEach(index => { index.hidden = false; });
+  document.querySelector('#work .stack-marquee')?.removeAttribute('tabindex');
   main.querySelectorAll('[data-desktop-document-link]').forEach(link => {
     const url = new URL(link.href);
     url.searchParams.set('view', 'desktop');
@@ -294,6 +295,31 @@
   document.querySelector('.skip-link').addEventListener('click', (event) => {
     event.preventDefault();
     main.focus({ preventScroll: true });
+  });
+
+  let pointerInStartPanel = false;
+  let lastFocused = null;
+
+  function trackMenuPress(event) {
+    pointerInStartPanel = startPanel.contains(event.target);
+  }
+
+  function clearMenuPress() {
+    pointerInStartPanel = false;
+  }
+
+  document.addEventListener('pointerdown', trackMenuPress, true);
+  // WebKit dispatches a compatibility mousedown after touch pointerup.
+  document.addEventListener('mousedown', trackMenuPress, true);
+  document.addEventListener('pointerup', clearMenuPress);
+  document.addEventListener('pointercancel', clearMenuPress);
+  document.addEventListener('click', clearMenuPress);
+  document.addEventListener('keydown', clearMenuPress, true);
+  document.addEventListener('focusin', event => {
+    lastFocused = event.target;
+    if (!startPanel.hidden && !pointerInStartPanel && !taskbar.contains(event.target)) {
+      setStartOpen(false);
+    }
   });
 
   start.addEventListener('click', () => setStartOpen(startPanel.hidden));
@@ -420,11 +446,8 @@
     });
   }
 
-  taskbar.addEventListener('focusout', (event) => {
-    if (event.relatedTarget && !taskbar.contains(event.relatedTarget)) setStartOpen(false);
-  });
-
   compact.addEventListener('change', () => {
+    const focused = document.activeElement === document.body ? lastFocused : document.activeElement;
     if (keyboardMove) finishKeyboardMove();
     if (drag) {
       const { entry, pointerId } = drag;
@@ -432,9 +455,18 @@
       if (entry.titlebar.hasPointerCapture(pointerId)) entry.titlebar.releasePointerCapture(pointerId);
     }
     renderWindows();
+    if (compact.matches && focused && !focused.getClientRects().length) {
+      if (focused.closest('.desktop-shortcuts')) start.focus();
+      else if (entryFor(focused) === activeWindow && activeWindow) {
+        activeWindow.closeButton.focus({ preventScroll: true });
+      }
+    }
   });
 
-  window.addEventListener('resize', () => windows.forEach(keepWindowInBounds));
+  window.addEventListener('resize', () => {
+    windows.forEach(keepWindowInBounds);
+    if (activeWindow && !tasks.contains(document.activeElement)) revealTask(activeWindow.task);
+  });
   window.addEventListener('hashchange', () => {
     const target = fragmentTarget(location.hash);
     const entry = entryFor(target);
